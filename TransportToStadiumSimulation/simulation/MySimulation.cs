@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using OSPABA;
 using agents;
 using TransportToStadiumSimulation.dataObjects;
@@ -8,10 +9,10 @@ namespace simulation
 {
 	public class MySimulation : Simulation
     {
-        #region output properties
 
+        #region output properties
         public List<IVehicleData> Vehicles => VehiclesAgent.AllVehicles;
-        public List<IBusStopData> BusStops { get; }
+        public List<IBusStopData> BusStops => BusStopsAgent.BusStops.Values.Cast<IBusStopData>().ToList();
         #endregion
 
         #region input properties
