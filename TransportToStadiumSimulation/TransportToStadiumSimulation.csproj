@@ -46,6 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="agents\BusStopsAgent.cs" />
+    <Compile Include="agents\ExternalEnvironmentAgent.cs" />
+    <Compile Include="agents\ModelAgent.cs" />
+    <Compile Include="agents\StadiumAgent.cs" />
+    <Compile Include="agents\VehiclesAgent.cs" />
+    <Compile Include="managers\BusStopsManager.cs" />
+    <Compile Include="managers\ExternalEnvironmentManager.cs" />
+    <Compile Include="managers\ModelManager.cs" />
+    <Compile Include="managers\StadiumManager.cs" />
+    <Compile Include="managers\VehiclesManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -69,6 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="continualAssistants\" />
+    <Folder Include="instantAssistants\" />
+    <Folder Include="simulation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
