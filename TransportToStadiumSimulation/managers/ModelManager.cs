@@ -1,8 +1,7 @@
 using OSPABA;
 using simulation;
 using agents;
-using continualAssistants;
-using instantAssistants;
+
 namespace managers
 {
 	//meta! id="1"

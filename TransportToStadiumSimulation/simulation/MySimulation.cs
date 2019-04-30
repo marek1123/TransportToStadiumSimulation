@@ -9,25 +9,25 @@ namespace simulation
 			Init();
 		}
 
-		override public void PrepareSimulation()
+		override protected void PrepareSimulation()
 		{
 			base.PrepareSimulation();
 			// Create global statistcis
 		}
 
-		override public void PrepareReplication()
+		override protected void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Reset entities, queues, local statistics, etc...
 		}
 
-		override public void ReplicationFinished()
+		override protected void ReplicationFinished()
 		{
 			// Collect local statistics into global, update UI, etc...
 			base.ReplicationFinished();
 		}
 
-		override public void SimulationFinished()
+		override protected void SimulationFinished()
 		{
 			// Dysplay simulation results
 			base.SimulationFinished();
