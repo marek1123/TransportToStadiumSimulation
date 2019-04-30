@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +55,16 @@
     <Compile Include="agents\ModelAgent.cs" />
     <Compile Include="agents\StadiumAgent.cs" />
     <Compile Include="agents\VehiclesAgent.cs" />
+    <Compile Include="dataObjects\IBusStopData.cs" />
+    <Compile Include="dataObjects\IVehicleData.cs" />
+    <Compile Include="entities\StateMachine.cs" />
+    <Compile Include="entities\Vehicle.cs" />
+    <Compile Include="entities\VehicleState.cs" />
+    <Compile Include="entities\VehicleType.cs" />
+    <Compile Include="gui\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\MainForm.Designer.cs" />
     <Compile Include="managers\BusStopsManager.cs" />
     <Compile Include="managers\ExternalEnvironmentManager.cs" />
     <Compile Include="managers\ModelManager.cs" />
@@ -61,10 +72,17 @@
     <Compile Include="managers\VehiclesManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="simulation\BusStopNavigationNode.cs" />
     <Compile Include="simulation\Mc.cs" />
     <Compile Include="simulation\MyMessage.cs" />
     <Compile Include="simulation\MySimulation.cs" />
+    <Compile Include="simulation\Navigation.cs" />
     <Compile Include="simulation\SimId.cs" />
+    <Compile Include="statistics\Timer.cs" />
+    <Compile Include="utils\PercentsFormatter.cs" />
+    <Compile Include="utils\StringParser.cs" />
+    <Compile Include="utils\TimeFormatter.cs" />
+    <EmbeddedResource Include="gui\MainForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

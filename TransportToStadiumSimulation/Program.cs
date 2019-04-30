@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using simulation;
+using TransportToStadiumAgentSimulation.gui;
 
 namespace TransportToStadiumSimulation
 {
@@ -13,7 +15,8 @@ namespace TransportToStadiumSimulation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            MySimulation simulation = new MySimulation();
+            Application.Run(new MainForm(simulation));
         }
     }
 }

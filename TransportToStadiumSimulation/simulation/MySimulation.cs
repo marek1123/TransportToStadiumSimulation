@@ -1,13 +1,26 @@
+using System.Collections.Generic;
 using OSPABA;
 using agents;
+using TransportToStadiumSimulation.dataObjects;
+
 namespace simulation
 {
 	public class MySimulation : Simulation
-	{
-		public MySimulation()
+    {
+        #region output properties
+        public List<IVehicleData> Vehicles { get; }
+        public List<IBusStopData> BusStops { get; }
+        #endregion
+
+        #region input properties
+        public List<int>[] LineVehicles { get; }
+        #endregion
+
+        public MySimulation()
 		{
 			Init();
-		}
+            LineVehicles = new[] { new List<int>(), new List<int>(), new List<int>() };
+        }
 
 		override protected void PrepareSimulation()
 		{
