@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using continualAssistants;
 using OSPABA;
 using simulation;
 using managers;
@@ -72,6 +73,7 @@ namespace agents
 		private void Init()
 		{
 			new VehiclesManager(SimId.VehiclesManager, MySim, this);
+			new NextStopArrivalScheduler(SimId.NextStopArrivalScheduler, MySim, this);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 		}
 		//meta! tag="end"

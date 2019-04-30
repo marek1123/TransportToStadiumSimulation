@@ -14,6 +14,7 @@ namespace simulation
 		public const int BusStopsManager = 104;
 		public const int StadiumManager = 105;
 		public const int ExternalEnvironmentManager = 106;
+		public const int NextStopArrivalScheduler = 1001;
 		//meta! tag="end"
 	}
 }

@@ -55,6 +55,7 @@
     <Compile Include="agents\ModelAgent.cs" />
     <Compile Include="agents\StadiumAgent.cs" />
     <Compile Include="agents\VehiclesAgent.cs" />
+    <Compile Include="continualAssistants\NextStopArrivalScheduler.cs" />
     <Compile Include="dataObjects\IBusStopData.cs" />
     <Compile Include="dataObjects\IVehicleData.cs" />
     <Compile Include="entities\StateMachine.cs" />
@@ -108,7 +109,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="continualAssistants\" />
     <Folder Include="instantAssistants\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

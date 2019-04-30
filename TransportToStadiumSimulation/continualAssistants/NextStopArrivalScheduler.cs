@@ -1,31 +1,24 @@
 using OSPABA;
 using simulation;
 using agents;
-
-namespace managers
+namespace continualAssistants
 {
-	//meta! id="3"
-	public class VehiclesManager : Manager
+	//meta! id="24"
+	public class NextStopArrivalScheduler : Scheduler
 	{
-		public VehiclesManager(int id, Simulation mySim, Agent myAgent) :
+		public NextStopArrivalScheduler(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
 		{
-			Init();
 		}
 
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
-
-			if (PetriNet != null)
-			{
-				PetriNet.Clear();
-			}
 		}
 
-		//meta! sender="ModelAgent", id="14", type="Response"
-		public void ProcessHandleVehicleOnBusStop(MessageForm message)
+		//meta! sender="VehiclesAgent", id="25", type="Start"
+		public void ProcessStart(MessageForm message)
 		{
 		}
 
@@ -37,26 +30,13 @@ namespace managers
 			}
 		}
 
-		//meta! sender="NextStopArrivalScheduler", id="25", type="Finish"
-		public void ProcessFinish(MessageForm message)
-		{
-		}
-
 		//meta! userInfo="Generated code: do not modify", tag="begin"
-		public void Init()
-		{
-		}
-
 		override public void ProcessMessage(MessageForm message)
 		{
 			switch (message.Code)
 			{
-			case Mc.Finish:
-				ProcessFinish(message);
-			break;
-
-			case Mc.HandleVehicleOnBusStop:
-				ProcessHandleVehicleOnBusStop(message);
+			case Mc.Start:
+				ProcessStart(message);
 			break;
 
 			default:
