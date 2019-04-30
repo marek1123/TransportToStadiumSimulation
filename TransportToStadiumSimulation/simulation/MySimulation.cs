@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using OSPABA;
 using agents;
 using TransportToStadiumSimulation.dataObjects;
+using TransportToStadiumSimulation.simulation;
 
 namespace simulation
 {
 	public class MySimulation : Simulation
     {
         #region output properties
-        public List<IVehicleData> Vehicles { get; }
+
+        public List<IVehicleData> Vehicles => VehiclesAgent.AllVehicles;
         public List<IBusStopData> BusStops { get; }
         #endregion
 
@@ -16,10 +18,19 @@ namespace simulation
         public List<int>[] LineVehicles { get; }
         #endregion
 
+        #region configuration properties
+        public LinesConfiguration LinesConfiguration { get; }
+        #endregion
+
         public MySimulation()
 		{
-			Init();
+            // init input properties
             LineVehicles = new[] { new List<int>(), new List<int>(), new List<int>() };
+
+            // init configuration properties
+            LinesConfiguration = new LinesConfiguration();
+
+            Init();            
         }
 
 		override protected void PrepareSimulation()

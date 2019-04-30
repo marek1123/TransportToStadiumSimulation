@@ -1,19 +1,68 @@
+using System.Collections.Generic;
+using System.Linq;
 using OSPABA;
 using simulation;
 using managers;
+using TransportToStadiumSimulation.dataObjects;
+using TransportToStadiumSimulation.entities;
+using TransportToStadiumSimulation.simulation;
 
 namespace agents
 {
 	//meta! id="3"
 	public class VehiclesAgent : Agent
-	{
-		public VehiclesAgent(int id, Simulation mySim, Agent parent) :
-			base(id, mySim, parent)
-		{
-			Init();
-		}
+    {
+        private BusStopsMap busStopsMap;
+        private readonly int[] vehiclesCapacity = { 186, 107 };
+        private readonly int[] doorsCounts = { 4, 3 };
 
-		override public void PrepareReplication()
+        public List<List<Vehicle>> LineVehicles { get; }
+        public List<IVehicleData> AllVehicles => LineVehicles[0].Concat(LineVehicles[1].Concat(LineVehicles[2].Cast<IVehicleData>())).ToList();
+
+        public VehiclesAgent(int id, Simulation mySim, Agent parent) :
+            base(id, mySim, parent)
+        {
+            Init();            
+
+            LineVehicles = new List<List<Vehicle>>()
+            {
+                new List<Vehicle>(),
+                new List<Vehicle>(),
+                new List<Vehicle>()
+            };
+
+            var mySimulation = (MySimulation)mySim;
+            busStopsMap.CreateBusStopsMap(mySimulation.LinesConfiguration);
+        }
+
+        public void CreateVehicles(MySimulation simulation)
+        {
+            int id = 1;
+
+            id = CreateLineVehicles(simulation, id, 0, VehicleType.PublicCarrierVehicle);
+            id = CreateLineVehicles(simulation, id, 1, VehicleType.PublicCarrierVehicle);
+            id = CreateLineVehicles(simulation, id, 2, VehicleType.PublicCarrierVehicle);
+        }
+
+        private int CreateLineVehicles(MySimulation simulation, int id, int line, VehicleType type)
+        {
+            foreach (var lineVehicle in simulation.LineVehicles[line])
+            {
+                var vehicle = new Vehicle(simulation, id, type, doorsCounts[lineVehicle], vehiclesCapacity[lineVehicle],
+                    new Navigation(busStopsMap.StartsOfTheLines[line]));
+                LineVehicles[line].Add(vehicle);
+                id++;
+            }
+
+            return id;
+        }
+
+        public void ClearVehicles()
+        {
+            LineVehicles.ForEach(vehicles => vehicles.Clear());
+        }
+
+        override public void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication

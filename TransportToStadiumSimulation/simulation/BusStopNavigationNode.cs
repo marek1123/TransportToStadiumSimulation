@@ -5,14 +5,12 @@
         public BusStopNavigationNode Next { get; set; }
         public double TimeToNext { get; }
 
-        public string Name { get; }
-        public int Id { get; }
+        public string Name { get; }        
 
-        public BusStopNavigationNode(double timeToNext, string name, int id)
+        public BusStopNavigationNode(double timeToNext, string name)
         {            
             TimeToNext = timeToNext;
-            Name = name;
-            Id = id;
+            Name = name;            
         }
     }
 }
