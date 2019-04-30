@@ -189,6 +189,7 @@ namespace TransportToStadiumAgentSimulation.gui
         }
 
         #region set simulation parameters        
+        // TODO check if integers falls in range 0-1
         private void textBoxLineAVehicles_TextChanged(object sender, EventArgs e)
         {
             try

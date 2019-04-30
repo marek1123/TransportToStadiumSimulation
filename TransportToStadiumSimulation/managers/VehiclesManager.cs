@@ -1,6 +1,7 @@
 using OSPABA;
 using simulation;
 using agents;
+using TransportToStadiumSimulation.entities;
 
 namespace managers
 {
@@ -16,18 +17,43 @@ namespace managers
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
-			// Setup component for the next replication
+            // Setup component for the next replication
+            var simulation = (MySimulation)MySim;
+            MyAgent.ClearVehicles();
+            MyAgent.CreateVehicles(simulation);
 
-			if (PetriNet != null)
+            StartLineVehicles(0);
+            StartLineVehicles(1);
+            StartLineVehicles(2);
+
+            if (PetriNet != null)
 			{
 				PetriNet.Clear();
 			}
 		}
 
-		//meta! sender="ModelAgent", id="14", type="Response"
-		public void ProcessHandleVehicleOnBusStop(MessageForm message)
-		{
-		}
+        private void StartLineVehicles(int line)
+        {
+            MyAgent.LineVehicles[line].ForEach(StartVehicle);
+        }
+
+        private void StartVehicle(Vehicle vehicle)
+        {
+            MyMessage message = new MyMessage(MySim)
+            {
+                Code = Mc.HandleVehicleOnBusStop,
+                AddresseeId = SimId.ModelAgent,
+                Vehicle = vehicle
+            };
+            Request(message);
+        }
+
+        //meta! sender="ModelAgent", id="14", type="Response"
+        public void ProcessHandleVehicleOnBusStop(MessageForm message)
+		{            
+            message.Addressee = MyAgent.NextStopArrivalScheduler;
+            StartContinualAssistant(message);
+        }
 
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)
@@ -40,7 +66,13 @@ namespace managers
 		//meta! sender="NextStopArrivalScheduler", id="25", type="Finish"
 		public void ProcessFinish(MessageForm message)
 		{
-		}
+            var myMessage = (MyMessage)message;
+            myMessage.Vehicle.MoveToNext();
+            myMessage.Vehicle.EnterState(VehicleState.OnTheBusStop);
+            message.AddresseeId = SimId.ModelAgent;
+            message.Code = Mc.HandleVehicleOnBusStop;
+            Request(message);
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()

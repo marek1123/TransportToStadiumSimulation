@@ -27,17 +27,29 @@ namespace managers
 		//meta! sender="BusStopsAgent", id="16", type="Response"
 		public void ProcessHandleVehicleOnBusStopBusStopsAgent(MessageForm message)
 		{
-		}
+            Response(message);
+        }
 
 		//meta! sender="StadiumAgent", id="17", type="Response"
 		public void ProcessHandleVehicleOnBusStopStadiumAgent(MessageForm message)
 		{
-		}
+            Response(message);
+        }
 
 		//meta! sender="VehiclesAgent", id="14", type="Request"
 		public void ProcessHandleVehicleOnBusStopVehiclesAgent(MessageForm message)
-		{
-		}
+        {
+            var myMessage = (MyMessage) message;
+            if (myMessage.Vehicle.IsAtStadium)
+            {
+                message.AddresseeId = SimId.StadiumAgent;
+            }
+            else
+            {
+                message.AddresseeId = SimId.BusStopsAgent;
+            }            
+            Request(message);
+        }
 
 		//meta! sender="ExternalEnvironmentAgent", id="12", type="Notice"
 		public void ProcessPassengerArrived(MessageForm message)

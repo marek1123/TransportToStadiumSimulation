@@ -9,5 +9,6 @@ namespace simulation
 		//meta! tag="end"
 
 		// 1..1000 range reserved for user
-	}
+        public const int VehicleArrivedToBusStop = 1;
+    }
 }

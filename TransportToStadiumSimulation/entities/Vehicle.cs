@@ -8,6 +8,7 @@ namespace TransportToStadiumSimulation.entities
     public class Vehicle: StateMachine<VehicleState>, IVehicleData
     {
         public Navigation Navigation { get; }
+        public bool IsAtStadium => Navigation.CurrentBusStopNavigationNode.Name == "st";
         private readonly MySimulation mySimulation;
 
         public Vehicle(MySimulation mySimulation, int id, VehicleType type, int doorsCount, int capacity, Navigation navigation): 

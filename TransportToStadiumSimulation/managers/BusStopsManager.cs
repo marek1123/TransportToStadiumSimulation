@@ -27,7 +27,9 @@ namespace managers
 		//meta! sender="ModelAgent", id="16", type="Request"
 		public void ProcessHandleVehicleOnBusStop(MessageForm message)
 		{
-		}
+            // TODO do not return immediately, but process            
+            Response(message);
+        }
 
 		//meta! sender="ModelAgent", id="13", type="Notice"
 		public void ProcessPassengerArrived(MessageForm message)

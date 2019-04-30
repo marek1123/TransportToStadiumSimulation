@@ -19,6 +19,7 @@ namespace agents
 
         public List<List<Vehicle>> LineVehicles { get; }
         public List<IVehicleData> AllVehicles => LineVehicles[0].Concat(LineVehicles[1].Concat(LineVehicles[2].Cast<IVehicleData>())).ToList();
+        public NextStopArrivalScheduler NextStopArrivalScheduler { get; set; }
 
         public VehiclesAgent(int id, Simulation mySim, Agent parent) :
             base(id, mySim, parent)
@@ -33,6 +34,7 @@ namespace agents
             };
 
             var mySimulation = (MySimulation)mySim;
+            busStopsMap = new BusStopsMap();
             busStopsMap.CreateBusStopsMap(mySimulation.LinesConfiguration);
         }
 
