@@ -58,6 +58,10 @@
     <Compile Include="managers\VehiclesManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="simulation\Mc.cs" />
+    <Compile Include="simulation\MyMessage.cs" />
+    <Compile Include="simulation\MySimulation.cs" />
+    <Compile Include="simulation\SimId.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -83,7 +87,6 @@
   <ItemGroup>
     <Folder Include="continualAssistants\" />
     <Folder Include="instantAssistants\" />
-    <Folder Include="simulation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
