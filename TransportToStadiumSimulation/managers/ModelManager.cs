@@ -53,8 +53,10 @@ namespace managers
 
 		//meta! sender="ExternalEnvironmentAgent", id="12", type="Notice"
 		public void ProcessPassengerArrived(MessageForm message)
-		{
-		}
+        {
+            message.AddresseeId = SimId.BusStopsAgent;
+            Notice(message);
+        }
 
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)

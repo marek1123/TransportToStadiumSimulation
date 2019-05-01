@@ -18,6 +18,11 @@ namespace managers
 			base.PrepareReplication();
 			// Setup component for the next replication
 
+            var myMessage = new MyMessage(MySim);
+            myMessage.Addressee = MyAgent.PassengerArrivalProcess;
+            myMessage.Code = Mc.PassengerArrived;
+            Notice(myMessage);           
+
 			if (PetriNet != null)
 			{
 				PetriNet.Clear();
@@ -39,7 +44,9 @@ namespace managers
 
 		//meta! sender="PassengerArrivalProcess", id="31", type="Notice"
 		public void ProcessPassengerArrived(MessageForm message)
-		{
+        {
+            message.AddresseeId = SimId.BusStopsAgent;
+            Notice(message);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

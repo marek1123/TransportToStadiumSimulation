@@ -18,30 +18,30 @@ namespace TransportToStadiumAgentSimulation.gui
     public partial class MainForm : Form
     {
         private MySimulation simulation;        
-        private bool paused = false;        
-        private double endTime = 6000;
-        private const byte startHour = 18;
-        private const byte startMinute = 0;
-        private const byte startSecond = 0;
-        private double startTime = startHour * 3600 + startMinute * 60 + startSecond;
-        
-        public MainForm(MySimulation simulation)
+        private bool paused = false;                
+        private double startTime;
+        private double hockeyMatchTime;
+        private double endTime;
+
+        public MainForm()
         {
             InitializeComponent();
-            this.simulation = simulation; 
+            init();
+
+            this.simulation = new MySimulation(0, endTime - startTime, hockeyMatchTime - startTime);
             
             // register simulation lifecycle handlers
             simulation.OnSimulationDidFinish(handleSimulationDidFinish);
             simulation.OnSimulationWillStart(handleSimulationWillStart);
             simulation.OnReplicationWillStart(handleReplicationWillStart);
-            simulation.OnRefreshUI(handleRefreshUi);
-
-            init();
+            simulation.OnRefreshUI(handleRefreshUi);            
         }
 
+        #region init
         private void init()
         {
             initButtons();
+            initTimes();
         }
 
         private void initButtons()
@@ -49,7 +49,16 @@ namespace TransportToStadiumAgentSimulation.gui
             buttStart.Enabled = true;
             buttPause.Enabled = false;
             buttStop.Enabled = false;
-        }                
+        }
+
+        private void initTimes()
+        {
+            // set times showed in GUI
+            startTime = TimeFormatter.HoursMinutesSecondsToDouble(18, 0, 0);
+            hockeyMatchTime = startTime + TimeFormatter.HoursMinutesSecondsToDouble(2, 0, 0);
+            endTime = hockeyMatchTime + TimeFormatter.HoursMinutesSecondsToDouble(1, 0, 0);                        
+        }
+        #endregion
 
         #region simulation lifecycle handlers
         private void handleReplicationWillStart(Simulation simulation)

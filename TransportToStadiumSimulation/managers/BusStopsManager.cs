@@ -33,8 +33,11 @@ namespace managers
 
 		//meta! sender="ModelAgent", id="13", type="Notice"
 		public void ProcessPassengerArrived(MessageForm message)
-		{
-		}
+        {
+            var myMessage = (MyMessage) message;
+            int busStopId = myMessage.BusStopId;
+            MyAgent.BusStops[busStopId].PassengerQueue.Enqueue(myMessage.Passenger);
+        }
 
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)

@@ -15,5 +15,10 @@
 
             return hours + ":" + minutes + ":" + seconds;
         }
+
+        public static double HoursMinutesSecondsToDouble(int hours, int minutes, int seconds)
+        {
+            return hours * 3600 + minutes * 60 + seconds;
+        }
     }
 }

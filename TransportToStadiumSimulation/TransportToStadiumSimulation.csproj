@@ -60,6 +60,7 @@
     <Compile Include="dataObjects\IBusStopData.cs" />
     <Compile Include="dataObjects\IVehicleData.cs" />
     <Compile Include="entities\BusStop.cs" />
+    <Compile Include="entities\Passenger.cs" />
     <Compile Include="entities\StateMachine.cs" />
     <Compile Include="entities\Vehicle.cs" />
     <Compile Include="entities\VehicleState.cs" />

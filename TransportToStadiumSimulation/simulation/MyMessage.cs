@@ -6,6 +6,8 @@ namespace simulation
 	public class MyMessage : MessageForm
 	{
         public Vehicle Vehicle { get; set; }
+        public Passenger Passenger { get; set; }
+        public int BusStopId { get; set; }
 
         public MyMessage(Simulation sim) :
 			base(sim)
@@ -29,6 +31,8 @@ namespace simulation
 			MyMessage original = (MyMessage)message;
             // Copy attributes
             Vehicle = original.Vehicle;
+            Passenger = original.Passenger;
+            BusStopId = original.BusStopId;
         }
 	}
 }

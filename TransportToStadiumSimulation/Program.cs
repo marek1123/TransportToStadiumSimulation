@@ -14,9 +14,8 @@ namespace TransportToStadiumSimulation
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            MySimulation simulation = new MySimulation();
-            Application.Run(new MainForm(simulation));
+            Application.SetCompatibleTextRenderingDefault(false);            
+            Application.Run(new MainForm());
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OSPABA;
 using agents;
+using OSPRNG;
 using TransportToStadiumSimulation.dataObjects;
 using TransportToStadiumSimulation.simulation;
 using TransportToStadiumSimulation.simulation.configuration;
@@ -14,30 +15,33 @@ namespace simulation
 
         #region output properties
         public List<IVehicleData> Vehicles => VehiclesAgent.AllVehicles;
-        public List<IBusStopData> BusStops => BusStopsAgent.BusStops.Values.Cast<IBusStopData>().ToList();
+        public List<IBusStopData> BusStops => BusStopsAgent.BusStops.Cast<IBusStopData>().ToList();
         #endregion
 
         #region input properties
         public List<int>[] LineVehicles { get; }
-        #endregion
-
-        #region seed generator
-        private readonly Random seedGenerator = new Random();
-        public int RandomSeed => seedGenerator.Next();
-        #endregion
+        public double StartTime { get; }
+        public double HockeyMatchTime { get; }
+        public double EndTime { get; }
+        #endregion        
 
         #region configuration properties
         public LinesConfiguration LinesConfiguration { get; }
         #endregion
 
-        public MySimulation()
+        public MySimulation(double startTime, double hockeyMatchTime, double endTime)
 		{
+            StartTime = startTime;
+            HockeyMatchTime = hockeyMatchTime;
+            EndTime = endTime;
+
             // init input properties
             LineVehicles = new[] { new List<int>(), new List<int>(), new List<int>() };
 
             // init configuration properties
             LinesConfiguration = new LinesConfiguration();
-
+           
+            ExponentialRNG.SetSeedGen(new Random());
             Init();            
         }        
 
