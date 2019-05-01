@@ -7,7 +7,9 @@ namespace agents
 {
 	//meta! id="6"
 	public class ExternalEnvironmentAgent : Agent
-	{
+    {
+        private const double passengerArrivalProcessTimeRange = 65;
+        
 		public ExternalEnvironmentAgent(int id, Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{

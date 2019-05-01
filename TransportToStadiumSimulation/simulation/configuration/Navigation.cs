@@ -1,4 +1,4 @@
-﻿namespace TransportToStadiumSimulation.simulation
+﻿namespace TransportToStadiumSimulation.simulation.configuration
 {
     public class Navigation
     {

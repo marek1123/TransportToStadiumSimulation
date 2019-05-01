@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using OSPABA;
 using agents;
 using TransportToStadiumSimulation.dataObjects;
 using TransportToStadiumSimulation.simulation;
+using TransportToStadiumSimulation.simulation.configuration;
 
 namespace simulation
 {
@@ -19,6 +21,11 @@ namespace simulation
         public List<int>[] LineVehicles { get; }
         #endregion
 
+        #region seed generator
+        private readonly Random seedGenerator = new Random();
+        public int RandomSeed => seedGenerator.Next();
+        #endregion
+
         #region configuration properties
         public LinesConfiguration LinesConfiguration { get; }
         #endregion
@@ -32,7 +39,7 @@ namespace simulation
             LinesConfiguration = new LinesConfiguration();
 
             Init();            
-        }
+        }        
 
 		override protected void PrepareSimulation()
 		{

@@ -8,40 +8,26 @@ namespace agents
 {
 	//meta! id="4"
 	public class BusStopsAgent : Agent
-	{
-        public Dictionary<string, BusStop> BusStops { get; private set; }
+    {
+        public List<BusStop> BusStops;
 
         public BusStopsAgent(int id, Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{
 			Init();
-            BusStops = new Dictionary<string, BusStop>();
+            BusStops = new List<BusStop>();
         }
 
         private void CreateBusStops()
-        {            
+        {
             // init line a bus stops            
             var mySimulation = (MySimulation) MySim;
 
-            CreateLineBusStops(mySimulation.LinesConfiguration.LineANames, mySimulation.LinesConfiguration.LineAPassengerCounts);
-            CreateLineBusStops(mySimulation.LinesConfiguration.LineBNames, mySimulation.LinesConfiguration.LineBPassengerCounts);
-            CreateLineBusStops(mySimulation.LinesConfiguration.LineCNames, mySimulation.LinesConfiguration.LineCPassengerCounts);           
-        }
-
-        private void CreateLineBusStops(string[] names, int[] counts)
-        {
-            for (int i = 0; i < names.Length; i++)
-            {
-                string name = names[i];
-                int maxPassengerCount = counts[i];
-
-                if (BusStops.ContainsKey(name))
-                {
-                    continue;
-                }
-                BusStops.Add(name, new BusStop(name, maxPassengerCount));                
-            }            
-        }
+            foreach (var busStopConfiguration in mySimulation.LinesConfiguration.BusStopConfigurationsById)
+            {                
+                BusStops.Add(new BusStop(busStopConfiguration.Id, busStopConfiguration.Name, busStopConfiguration.MaxPassengersCount));                                
+            }
+        }        
 
         private void ClearBusStops()
         {

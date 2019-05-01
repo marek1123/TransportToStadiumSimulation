@@ -1,6 +1,7 @@
 ﻿using simulation;
 using TransportToStadiumSimulation.dataObjects;
 using TransportToStadiumSimulation.simulation;
+using TransportToStadiumSimulation.simulation.configuration;
 using TransportToStadiumSimulation.utils;
 
 namespace TransportToStadiumSimulation.entities

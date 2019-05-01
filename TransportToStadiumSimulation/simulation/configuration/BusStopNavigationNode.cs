@@ -1,16 +1,18 @@
-﻿namespace TransportToStadiumSimulation.simulation
+﻿namespace TransportToStadiumSimulation.simulation.configuration
 {
     public class BusStopNavigationNode
     {
+        public int Id { get; }
         public BusStopNavigationNode Next { get; set; }
         public double TimeToNext { get; }
 
         public string Name { get; }        
 
-        public BusStopNavigationNode(double timeToNext, string name)
+        public BusStopNavigationNode(int id, double timeToNext, string name)
         {            
             TimeToNext = timeToNext;
-            Name = name;            
+            Name = name;
+            Id = id;
         }
     }
 }

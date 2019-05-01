@@ -9,13 +9,15 @@ namespace TransportToStadiumSimulation.entities
 {
     public class BusStop: IBusStopData
     {
+        public int Id { get; }
         public string Name { get; }
         public int MaxPassengersCount { get; }
 
-        public BusStop(string name, int maxPassengersCount)
+        public BusStop(int id, string name, int maxPassengersCount)
         {
             Name = name;
             MaxPassengersCount = maxPassengersCount;
+            Id = id;
         }        
     }
 }
