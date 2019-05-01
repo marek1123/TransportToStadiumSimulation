@@ -5,7 +5,6 @@ using OSPABA;
 using agents;
 using OSPRNG;
 using TransportToStadiumSimulation.dataObjects;
-using TransportToStadiumSimulation.simulation;
 using TransportToStadiumSimulation.simulation.configuration;
 
 namespace simulation
@@ -16,6 +15,10 @@ namespace simulation
         #region output properties
         public List<IVehicleData> Vehicles => VehiclesAgent.AllVehicles;
         public List<IBusStopData> BusStops => BusStopsAgent.BusStops.Cast<IBusStopData>().ToList();
+
+        public bool VehiclesDataChanged { get; set; } = true;
+        public bool BusStopsDataChanged { get; set; } = true;
+
         #endregion
 
         #region input properties

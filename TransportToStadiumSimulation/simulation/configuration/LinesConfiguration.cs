@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransportToStadiumSimulation.simulation.configuration
 {
@@ -31,17 +30,17 @@ namespace TransportToStadiumSimulation.simulation.configuration
         public LinesConfiguration()
         {
             LineANames = new[] { "AA", "AB", "AC", "AD", "K1", "AE", "AF", "AG", "K3", "AH", "AI", "AJ", "AK", "AL" };
-            LineATimes = new[] { 3.2, 2.3, 2.1, 1.2, 5.4, 2.9, 3.4, 1.8, 4.0, 1.6, 4.6, 3.4, 1.2, 0.9 };
+            LineATimes = new[] { 192.0, 138.0, 126.0, 72.0, 324.0, 174.0, 204.0, 108.0, 240.0, 96.0, 276.0, 204.0, 72.0, 54.0 };
             LineAPassengerCounts = new[] { 123, 92, 241, 123, 260, 215, 245, 137, 220, 132, 164, 124, 213, 185 };
             LineATimesToStadium = computeTimesToStadium(LineATimes);
 
             LineBNames = new[] { "BA", "BB", "BC", "BD", "K2", "BE", "BF", "K3", "BG", "BH", "BI", "BJ" };
-            LineBTimes = new[] { 1.2, 2.3, 3.2, 4.3, 1.2, 2.7, 3, 6, 4.3, 0.5, 2.7, 1.3 };
+            LineBTimes = new[] { 72.0, 138.0, 192.0, 258.0, 72.0, 162.0, 180.0, 360.0, 258.0, 30.0, 162.0, 78.0 };
             LineBPassengerCounts = new[] { 79, 69, 43, 127, 210, 30, 69, 220, 162, 90, 148, 171 };
             LineBTimesToStadium = computeTimesToStadium(LineBTimes);
 
             LineCNames = new[] { "CA", "CB", "K1", "K2", "CC", "CD", "CE", "CF", "CG" };
-            LineCTimes = new[] { 0.6, 2.3, 4.1, 6, 2.3, 7.1, 4.8, 3.7, 7.2 };
+            LineCTimes = new[] { 36.0, 138.0, 246.0, 360.0, 138.0, 426.0, 288.0, 222.0, 432.0 };
             LineCPassengerCounts = new[] { 240, 310, 260, 210, 131, 190, 132, 128, 70 };
             LineCTimesToStadium = computeTimesToStadium(LineCTimes);
 

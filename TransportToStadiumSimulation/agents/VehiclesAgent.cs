@@ -6,7 +6,6 @@ using simulation;
 using managers;
 using TransportToStadiumSimulation.dataObjects;
 using TransportToStadiumSimulation.entities;
-using TransportToStadiumSimulation.simulation;
 using TransportToStadiumSimulation.simulation.configuration;
 
 namespace agents

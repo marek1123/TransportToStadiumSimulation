@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace TransportToStadiumSimulation.simulation.configuration
+﻿namespace TransportToStadiumSimulation.simulation.configuration
 {
     public class BusStopsMap
     {
-        public BusStopNavigationNode[] StartsOfTheLines { get; private set; }
-        private readonly double timeUnitsInMinute = 60;
+        public BusStopNavigationNode[] StartsOfTheLines { get; private set; }        
 
         public void CreateBusStopsMap(LinesConfiguration linesConfiguration)
         {
@@ -13,15 +10,15 @@ namespace TransportToStadiumSimulation.simulation.configuration
 
             int endBusStopId = linesConfiguration.GetIdByName("st");            
 
-            StartsOfTheLines[0] = CreateLineMap(linesConfiguration, linesConfiguration.LineANames, linesConfiguration.LineATimes, new BusStopNavigationNode(endBusStopId, 25 * timeUnitsInMinute, "st"));
-            StartsOfTheLines[1] = CreateLineMap(linesConfiguration, linesConfiguration.LineBNames, linesConfiguration.LineBTimes, new BusStopNavigationNode(endBusStopId, 10 * timeUnitsInMinute, "st"));
-            StartsOfTheLines[2] = CreateLineMap(linesConfiguration, linesConfiguration.LineCNames, linesConfiguration.LineCTimes, new BusStopNavigationNode(endBusStopId, 30 * timeUnitsInMinute, "st"));
+            StartsOfTheLines[0] = CreateLineMap(linesConfiguration, linesConfiguration.LineANames, linesConfiguration.LineATimes, new BusStopNavigationNode(endBusStopId, 1500, "st"));
+            StartsOfTheLines[1] = CreateLineMap(linesConfiguration, linesConfiguration.LineBNames, linesConfiguration.LineBTimes, new BusStopNavigationNode(endBusStopId, 600, "st"));
+            StartsOfTheLines[2] = CreateLineMap(linesConfiguration, linesConfiguration.LineCNames, linesConfiguration.LineCTimes, new BusStopNavigationNode(endBusStopId, 1800, "st"));
         }
 
         private BusStopNavigationNode CreateLineMap(LinesConfiguration configuration, string[] names, double[] times, BusStopNavigationNode endBusStop)
         {
             string name = names[0];
-            double timeToNext = times[0] * timeUnitsInMinute;             
+            double timeToNext = times[0];             
 
             var initNode = new BusStopNavigationNode(configuration.GetIdByName(name), timeToNext, name);
             var node = initNode;
@@ -29,7 +26,7 @@ namespace TransportToStadiumSimulation.simulation.configuration
             for (int i = 1; i < names.Length; i++)
             {
                 name = names[i];
-                timeToNext = times[i] * timeUnitsInMinute;                
+                timeToNext = times[i];                
 
                 var nextNode = new BusStopNavigationNode(configuration.GetIdByName(name), timeToNext, name);
                 node.Next = nextNode;

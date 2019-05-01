@@ -25,7 +25,7 @@ namespace agents
 
             foreach (var busStopConfiguration in mySimulation.LinesConfiguration.BusStopConfigurationsById)
             {                
-                BusStops.Add(new BusStop(busStopConfiguration.Id, busStopConfiguration.Name, busStopConfiguration.MaxPassengersCount));                                
+                BusStops.Add(new BusStop(mySimulation, busStopConfiguration.Id, busStopConfiguration.Name, busStopConfiguration.MaxPassengersCount));                                
             }
         }        
 

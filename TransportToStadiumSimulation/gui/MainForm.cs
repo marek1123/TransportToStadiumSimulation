@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using OSPABA;
 using simulation;
@@ -28,7 +21,7 @@ namespace TransportToStadiumAgentSimulation.gui
             InitializeComponent();
             init();
 
-            this.simulation = new MySimulation(0, endTime - startTime, hockeyMatchTime - startTime);
+            this.simulation = new MySimulation(0, hockeyMatchTime - startTime, endTime - startTime);
             
             // register simulation lifecycle handlers
             simulation.OnSimulationDidFinish(handleSimulationDidFinish);
@@ -77,22 +70,27 @@ namespace TransportToStadiumAgentSimulation.gui
             DoOnGuiThread(labelTime, () =>
             {
                 labelTime.Text = TimeFormatter.HoursMinutesSecondsString(time + startTime);
-            });
+            });                       
 
-            var vehicles = mySimulation.Vehicles;
-            var busStops = mySimulation.BusStops;
-
-            DoOnGuiThread(dataGridVehicles, () =>
+            if (mySimulation.VehiclesDataChanged)
             {
-                dataGridVehicles.DataSource = vehicles;
-                dataGridVehicles.Refresh();
-            });
+                var vehicles = mySimulation.Vehicles;
+                mySimulation.VehiclesDataChanged = false;                
+                DoOnGuiThread(dataGridVehicles, () =>
+                {
+                    dataGridVehicles.DataSource = vehicles;                    
+                });
+            }
 
-            DoOnGuiThread(dataGridBusStops, () =>
+            if (mySimulation.BusStopsDataChanged)
             {
-                dataGridBusStops.DataSource = busStops;
-                dataGridBusStops.Refresh();
-            });
+                var busStops = mySimulation.BusStops;
+                mySimulation.BusStopsDataChanged = false;                
+                DoOnGuiThread(dataGridBusStops, () =>
+                {
+                    dataGridBusStops.DataSource = busStops;                    
+                });
+            }            
         }
 
         private void handleSimulationWillStart(Simulation simulation)
@@ -123,7 +121,7 @@ namespace TransportToStadiumAgentSimulation.gui
                 buttPause.Enabled = true;
             });            
 
-            simulation.SimulateAsync((int)numReplicationsCount.Value, endTime);
+            simulation.SimulateAsync((int)numReplicationsCount.Value, endTime - startTime);
             ChangeSimulationSpeed();
         }
 

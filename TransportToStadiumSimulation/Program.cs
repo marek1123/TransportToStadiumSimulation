@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using simulation;
 using TransportToStadiumAgentSimulation.gui;
 
 namespace TransportToStadiumSimulation

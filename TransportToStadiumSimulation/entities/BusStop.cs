@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using TransportToStadiumSimulation.Annotations;
+﻿using System.Collections.Generic;
+using simulation;
 using TransportToStadiumSimulation.dataObjects;
 
 namespace TransportToStadiumSimulation.entities
@@ -14,13 +8,16 @@ namespace TransportToStadiumSimulation.entities
     {
         public int Id { get; }
         public string Name { get; }
-        public int PassengerCount => passengerQueue.Count;       
+        public int PassengersCount => passengerQueue.Count;       
 
         public int MaxPassengersCount { get; }
-        private Queue<Passenger> passengerQueue;
 
-        public BusStop(int id, string name, int maxPassengersCount)
+        private readonly Queue<Passenger> passengerQueue;
+        private readonly MySimulation mySimulation;
+
+        public BusStop(MySimulation mySimulation, int id, string name, int maxPassengersCount)
         {
+            this.mySimulation = mySimulation;
             Name = name;
             MaxPassengersCount = maxPassengersCount;
             Id = id;
@@ -29,13 +26,15 @@ namespace TransportToStadiumSimulation.entities
 
         public void EnqueuePassenger(Passenger passenger)
         {
-            passengerQueue.Enqueue(passenger);            
+            passengerQueue.Enqueue(passenger);
+            mySimulation.BusStopsDataChanged = true;
         }
 
         public Passenger DequeuePassenger()
         {
-            Passenger passenger = passengerQueue.Dequeue();            
-            return passenger;
+            Passenger passenger = passengerQueue.Dequeue();
+            mySimulation.BusStopsDataChanged = true;
+            return passenger;            
         }      
     }
 }

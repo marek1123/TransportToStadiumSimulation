@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Windows.Forms;
 using continualAssistants;
 using OSPABA;
 using simulation;
@@ -14,7 +13,7 @@ namespace agents
         public PassengerArrivalProcess PassengerArrivalProcess { get; set; }        
         public ExternalEnvironmentManager ExternalEnvironmentManager { get; set; }
 
-        private const double passengerArrivalProcessTimeRange = 65;
+        private const double passengerArrivalProcessTimeRange = 3900;
         public List<int> counts;
         public List<int> maxCounts;
         public List<double> startTimes;
@@ -32,12 +31,13 @@ namespace agents
             generators = new List<ExponentialRNG>();
 
             var mySimulation = (MySimulation)MySim;
+            double hockeyMatchTime = mySimulation.HockeyMatchTime;                       
             foreach (var busStopConfiguration in mySimulation.LinesConfiguration.BusStopConfigurationsById)
             {
                 counts.Add(0);
                 maxCounts.Add(busStopConfiguration.MaxPassengersCount);
-                startTimes.Add(mySimulation.HockeyMatchTime - (busStopConfiguration.TimeToStadium + 4500));
-                endTimes.Add(mySimulation.HockeyMatchTime - (busStopConfiguration.TimeToStadium + 600));
+                startTimes.Add(hockeyMatchTime - (busStopConfiguration.TimeToStadium + 4500));
+                endTimes.Add(hockeyMatchTime - (busStopConfiguration.TimeToStadium + 600));
                 generators.Add(new ExponentialRNG(passengerArrivalProcessTimeRange / busStopConfiguration.MaxPassengersCount));
             }
         }        

@@ -28,7 +28,7 @@ namespace TransportToStadiumSimulation.entities
             timers[(int)(object)initState].Start(initTime);
         }
 
-        public void Reset(T initState, double initTime)
+        public virtual void Reset(T initState, double initTime)
         {
             CurrentState = initState;
             foreach (var timer in timers)
@@ -40,14 +40,14 @@ namespace TransportToStadiumSimulation.entities
             isCurrentStateDurationKnown = false;
         }
 
-        public void EnterState(T newState, double duration)
+        public virtual void EnterState(T newState, double duration)
         {
             isCurrentStateDurationKnown = true;
             currentStateDuration = duration;
             SwitchState(newState, CurrentTime);
         }
 
-        public void EnterState(T newState)
+        public virtual void EnterState(T newState)
         {
             isCurrentStateDurationKnown = false;
             SwitchState(newState, CurrentTime);

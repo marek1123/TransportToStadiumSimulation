@@ -25,7 +25,7 @@ namespace continualAssistants
 		public void ProcessStart(MessageForm message)
 		{
             var myMessage = (MyMessage)message;
-            double duration = myMessage.Vehicle.Navigation.TimeToNext;
+            double duration = myMessage.Vehicle.TimeToNext;
             myMessage.Vehicle.EnterState(VehicleState.Riding, duration);
             message.Code = Mc.VehicleArrivedToBusStop;
             Hold(duration, message);
