@@ -1,27 +1,25 @@
 using OSPABA;
-using agents;
 using simulation;
-
-namespace managers
+using agents;
+namespace continualAssistants
 {
-	//meta! id="6"
-	public class ExternalEnvironmentManager : Manager
+	//meta! id="29"
+	public class PassengerArrivalProcess : Process
 	{
-		public ExternalEnvironmentManager(int id, Simulation mySim, Agent myAgent) :
+		public PassengerArrivalProcess(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
 		{
-			Init();
 		}
 
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
+		}
 
-			if (PetriNet != null)
-			{
-				PetriNet.Clear();
-			}
+		//meta! sender="ExternalEnvironmentAgent", id="30", type="Start"
+		public void ProcessStart(MessageForm message)
+		{
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -32,31 +30,13 @@ namespace managers
 			}
 		}
 
-		//meta! sender="PassengerArrivalProcess", id="30", type="Finish"
-		public void ProcessFinish(MessageForm message)
-		{
-		}
-
-		//meta! sender="PassengerArrivalProcess", id="31", type="Notice"
-		public void ProcessPassengerArrived(MessageForm message)
-		{
-		}
-
 		//meta! userInfo="Generated code: do not modify", tag="begin"
-		public void Init()
-		{
-		}
-
 		override public void ProcessMessage(MessageForm message)
 		{
 			switch (message.Code)
 			{
-			case Mc.Finish:
-				ProcessFinish(message);
-			break;
-
-			case Mc.PassengerArrived:
-				ProcessPassengerArrived(message);
+			case Mc.Start:
+				ProcessStart(message);
 			break;
 
 			default:

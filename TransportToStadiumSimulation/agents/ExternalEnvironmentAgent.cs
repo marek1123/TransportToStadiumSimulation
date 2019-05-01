@@ -1,3 +1,4 @@
+using continualAssistants;
 using OSPABA;
 using simulation;
 using managers;
@@ -23,6 +24,8 @@ namespace agents
 		private void Init()
 		{
 			new ExternalEnvironmentManager(SimId.ExternalEnvironmentManager, MySim, this);
+			new PassengerArrivalProcess(SimId.PassengerArrivalProcess, MySim, this);
+			AddOwnMessage(Mc.PassengerArrived);
 		}
 		//meta! tag="end"
 	}

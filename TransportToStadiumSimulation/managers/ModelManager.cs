@@ -80,12 +80,12 @@ namespace managers
 					ProcessHandleVehicleOnBusStopBusStopsAgent(message);
 				break;
 
-				case SimId.StadiumAgent:
-					ProcessHandleVehicleOnBusStopStadiumAgent(message);
-				break;
-
 				case SimId.VehiclesAgent:
 					ProcessHandleVehicleOnBusStopVehiclesAgent(message);
+				break;
+
+				case SimId.StadiumAgent:
+					ProcessHandleVehicleOnBusStopStadiumAgent(message);
 				break;
 				}
 			break;
