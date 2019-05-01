@@ -11,7 +11,9 @@ namespace agents
 	//meta! id="6"
 	public class ExternalEnvironmentAgent : Agent
     {
-        public PassengerArrivalProcess PassengerArrivalProcess { get; set; }
+        public PassengerArrivalProcess PassengerArrivalProcess { get; set; }        
+        public ExternalEnvironmentManager ExternalEnvironmentManager { get; set; }
+
         private const double passengerArrivalProcessTimeRange = 65;
         public List<int> counts;
         public List<int> maxCounts;
@@ -52,7 +54,11 @@ namespace agents
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
-            reset();                               
+            reset();
+
+            var myMessage = new MyMessage(MySim);
+            myMessage.Addressee = PassengerArrivalProcess;            
+            ExternalEnvironmentManager.StartContinualAssistant(myMessage);
         }
         
 		//meta! userInfo="Generated code: do not modify", tag="begin"

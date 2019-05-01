@@ -24,7 +24,8 @@ namespace continualAssistants
 
 		//meta! sender="ExternalEnvironmentAgent", id="30", type="Start"
 		public void ProcessStart(MessageForm message)
-        {                                  
+        {
+            message.MySim = MySim;
             for (int busStopId = 0; busStopId < MyAgent.startTimes.Count; busStopId++)
             {
                 MyMessage myMessage = new MyMessage(MySim)
@@ -33,7 +34,9 @@ namespace continualAssistants
                     BusStopId = busStopId
                 };
 
-                Hold(MyAgent.startTimes[busStopId] - MySim.CurrentTime + MyAgent.generators[busStopId].Sample(), myMessage);
+                double duration = MyAgent.startTimes[busStopId] - MySim.CurrentTime +
+                                  MyAgent.generators[busStopId].Sample();
+                Hold(duration, myMessage);
             }
 		}
 
@@ -42,7 +45,7 @@ namespace continualAssistants
             var myMessage = (MyMessage) message;
             int busStopId = myMessage.BusStopId;
 
-            if (MySim.CurrentTime < MyAgent.endTimes[busStopId])
+            if (MySim.CurrentTime > MyAgent.endTimes[busStopId])
             {
                 // passenger arrival process on bus stop with id busStopId ends
                 return;

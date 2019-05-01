@@ -11,17 +11,13 @@ namespace managers
 			base(id, mySim, myAgent)
 		{
 			Init();
-		}
+            MyAgent.ExternalEnvironmentManager = this;
+        }
 
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
-			// Setup component for the next replication
-
-            var myMessage = new MyMessage(MySim);
-            myMessage.Addressee = MyAgent.PassengerArrivalProcess;
-            myMessage.Code = Mc.PassengerArrived;
-            Notice(myMessage);           
+			// Setup component for the next replication                   
 
 			if (PetriNet != null)
 			{

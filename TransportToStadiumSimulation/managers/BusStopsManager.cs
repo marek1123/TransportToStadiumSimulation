@@ -36,7 +36,7 @@ namespace managers
         {
             var myMessage = (MyMessage) message;
             int busStopId = myMessage.BusStopId;
-            MyAgent.BusStops[busStopId].PassengerQueue.Enqueue(myMessage.Passenger);
+            MyAgent.BusStops[busStopId].EnqueuePassenger(myMessage.Passenger);
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"
