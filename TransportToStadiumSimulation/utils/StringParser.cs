@@ -7,6 +7,10 @@ namespace TransportToStadiumSimulation.utils
     {
         public static List<int> ParseCommaSeparatedIntegers(string str)
         {
+            if (str == "")
+            {
+                return new List<int>();
+            }
             return (str ?? "").Split(',').Select(int.Parse).ToList();
         }
     }
