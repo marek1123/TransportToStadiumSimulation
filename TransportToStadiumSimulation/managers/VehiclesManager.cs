@@ -48,8 +48,8 @@ namespace managers
             Request(message);
         }
 
-        //meta! sender="ModelAgent", id="14", type="Response"
-        public void ProcessHandleVehicleOnBusStop(MessageForm message)
+		//meta! sender="ModelAgent", id="14", type="Response"
+		public void ProcessHandleVehicleOnBusStop(MessageForm message)
 		{            
             message.Addressee = MyAgent.NextStopArrivalScheduler;
             StartContinualAssistant(message);
@@ -94,12 +94,12 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Finish:
-				ProcessFinish(message);
-			break;
-
 			case Mc.HandleVehicleOnBusStop:
 				ProcessHandleVehicleOnBusStop(message);
+			break;
+
+			case Mc.Finish:
+				ProcessFinish(message);
 			break;
 
 			default:

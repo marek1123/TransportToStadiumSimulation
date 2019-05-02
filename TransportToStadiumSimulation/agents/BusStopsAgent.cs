@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using continualAssistants;
 using OSPABA;
 using simulation;
 using managers;
@@ -46,6 +47,7 @@ namespace agents
 		private void Init()
 		{
 			new BusStopsManager(SimId.BusStopsManager, MySim, this);
+			new BoardingFinishedScheduler(SimId.BoardingFinishedScheduler, MySim, this);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 			AddOwnMessage(Mc.PassengerArrived);
 		}

@@ -47,6 +47,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="BoardingFinishedScheduler", id="40", type="Finish"
+		public void ProcessFinish(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -56,12 +61,16 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.HandleVehicleOnBusStop:
-				ProcessHandleVehicleOnBusStop(message);
+			case Mc.Finish:
+				ProcessFinish(message);
 			break;
 
 			case Mc.PassengerArrived:
 				ProcessPassengerArrived(message);
+			break;
+
+			case Mc.HandleVehicleOnBusStop:
+				ProcessHandleVehicleOnBusStop(message);
 			break;
 
 			default:

@@ -55,6 +55,7 @@
     <Compile Include="agents\ModelAgent.cs" />
     <Compile Include="agents\StadiumAgent.cs" />
     <Compile Include="agents\VehiclesAgent.cs" />
+    <Compile Include="continualAssistants\BoardingFinishedScheduler.cs" />
     <Compile Include="continualAssistants\NextStopArrivalScheduler.cs" />
     <Compile Include="continualAssistants\PassengerArrivalProcess.cs" />
     <Compile Include="dataObjects\IBusStopData.cs" />
