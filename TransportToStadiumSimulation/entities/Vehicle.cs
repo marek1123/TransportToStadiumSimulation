@@ -1,4 +1,6 @@
-﻿using simulation;
+﻿using System.Collections;
+using System.Collections.Generic;
+using simulation;
 using TransportToStadiumSimulation.dataObjects;
 using TransportToStadiumSimulation.simulation.configuration;
 using TransportToStadiumSimulation.utils;
@@ -7,20 +9,25 @@ namespace TransportToStadiumSimulation.entities
 {
     public class Vehicle: StateMachine<VehicleState>, IVehicleData
     {
-        private Navigation Navigation { get; }
-        public bool IsAtStadium => Navigation.CurrentBusStopNavigationNode.Name == "st";
-        private readonly MySimulation mySimulation;        
+        private Navigation Navigation { get; }        
+        private readonly MySimulation mySimulation;
+        private Stack<Passenger> passengers;
 
+        #region IVehicleData
         public int Id { get; }
         public VehicleType Type { get; }
         public int DoorsCount { get; }
         public VehicleState State => CurrentState;
         public string LastBustStop => Navigation.CurrentBusStopNavigationNode.Name;
         public string NextBusStop => Navigation.Next.Name;
-        public double TimeToNext => Navigation.TimeToNext;
         public int Capacity { get; }
         public int PassengersCount { get; }
         public string PercentageOfRideFinished => PercentsFormatter.ToPercents(PercentageFinished());
+        #endregion        
+
+        public bool IsAtStadium => Navigation.CurrentBusStopNavigationNode.Name == "st";
+        public double TimeToNext => Navigation.TimeToNext;
+        public bool IsFull => passengers.Count >= Capacity;
         protected override double CurrentTime => mySimulation.CurrentTime;        
 
         public Vehicle(MySimulation mySimulation, int id, VehicleType type, int doorsCount, int capacity, Navigation navigation) :
@@ -34,6 +41,8 @@ namespace TransportToStadiumSimulation.entities
             Capacity = capacity;
             Id = id;
             PassengersCount = 0;
+
+            passengers = new Stack<Passenger>();
         }
 
         public void MoveToNext()

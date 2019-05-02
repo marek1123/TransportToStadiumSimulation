@@ -67,11 +67,22 @@ namespace managers
 		public void ProcessFinish(MessageForm message)
 		{
             var myMessage = (MyMessage)message;
-            myMessage.Vehicle.MoveToNext();
-            myMessage.Vehicle.EnterState(VehicleState.OnTheBusStop);
-            message.AddresseeId = SimId.ModelAgent;
-            message.Code = Mc.HandleVehicleOnBusStop;
-            Request(message);
+            Vehicle vehicle = myMessage.Vehicle;
+            vehicle.MoveToNext();
+
+            if (!vehicle.IsFull || vehicle.IsAtStadium)
+            {
+                myMessage.Vehicle.EnterState(VehicleState.OnTheBusStop);
+                message.AddresseeId = SimId.ModelAgent;
+                message.Code = Mc.HandleVehicleOnBusStop;
+                Request(message);
+            }
+            else
+            {
+                message.Addressee = MyAgent.NextStopArrivalScheduler;
+                StartContinualAssistant(message);
+            }
+            
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
