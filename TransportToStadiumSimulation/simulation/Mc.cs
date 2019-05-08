@@ -12,5 +12,6 @@ namespace simulation
 		// 1..1000 range reserved for user
         public const int VehicleArrivedToBusStop = 1;
         public const int PassengerBoarded = 2;
+        public const int PassengerUnboarded = 3;
     }
 }

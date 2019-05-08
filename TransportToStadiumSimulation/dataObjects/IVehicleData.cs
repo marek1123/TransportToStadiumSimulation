@@ -8,6 +8,7 @@ namespace TransportToStadiumSimulation.dataObjects
         VehicleType Type { get; }
         int DoorsCount { get; }
         VehicleState State { get; }
+        VehicleWaitingState WaitingState { get; }
         string LastBustStop { get; }
         string NextBusStop { get; }                        
         int Capacity { get; }

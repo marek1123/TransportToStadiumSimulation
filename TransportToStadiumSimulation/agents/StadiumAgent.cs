@@ -1,3 +1,4 @@
+using continualAssistants;
 using OSPABA;
 using simulation;
 using managers;
@@ -7,6 +8,8 @@ namespace agents
 	//meta! id="5"
 	public class StadiumAgent : Agent
 	{
+        public UnboardingFinishedScheduler UnboardingFinishedScheduler { get; set; }
+
 		public StadiumAgent(int id, Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{

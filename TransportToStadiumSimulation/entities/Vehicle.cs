@@ -18,6 +18,7 @@ namespace TransportToStadiumSimulation.entities
         public VehicleType Type { get; }
         public int DoorsCount { get; }
         public VehicleState State => CurrentState;
+        public VehicleWaitingState WaitingState { get; set; }
         public string LastBustStop => Navigation.CurrentBusStopNavigationNode.Name;
         public string NextBusStop => Navigation.Next.Name;
         public int Capacity { get; }
@@ -30,6 +31,7 @@ namespace TransportToStadiumSimulation.entities
         public bool IsAtStadium => Navigation.CurrentBusStopNavigationNode.Name == "st";
         public double TimeToNext => Navigation.TimeToNext;
         public bool IsFull => passengers.Count >= Capacity;
+        public bool IsEmpty => passengers.Count == 0;
         protected override double CurrentTime => mySimulation.CurrentTime;        
 
         public Vehicle(MySimulation mySimulation, int id, VehicleType type, int doorsCount, int capacity, Navigation navigation) :

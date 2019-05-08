@@ -58,6 +58,7 @@
     <Compile Include="continualAssistants\BoardingFinishedScheduler.cs" />
     <Compile Include="continualAssistants\NextStopArrivalScheduler.cs" />
     <Compile Include="continualAssistants\PassengerArrivalProcess.cs" />
+    <Compile Include="continualAssistants\UnboardingFinishedScheduler.cs" />
     <Compile Include="dataObjects\IBusStopData.cs" />
     <Compile Include="dataObjects\IVehicleData.cs" />
     <Compile Include="entities\BusStop.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="entities\Vehicle.cs" />
     <Compile Include="entities\VehicleState.cs" />
     <Compile Include="entities\VehicleType.cs" />
+    <Compile Include="entities\VehicleWaitingState.cs" />
     <Compile Include="gui\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

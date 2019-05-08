@@ -1,6 +1,7 @@
 using OSPABA;
 using simulation;
 using agents;
+using TransportToStadiumSimulation.entities;
 
 namespace managers
 {
@@ -26,9 +27,29 @@ namespace managers
 
 		//meta! sender="ModelAgent", id="17", type="Request"
 		public void ProcessHandleVehicleOnBusStop(MessageForm message)
-		{
-            // TODO do not return immediately, but process            
-            Response(message);
+		{            
+            var myMessage = (MyMessage) message;
+            Vehicle vehicle = myMessage.Vehicle;
+
+            if (vehicle.IsEmpty)
+            {
+                Response(myMessage);
+                return;
+            }
+
+            while (vehicle.FreeDoorsCount > 0 && !vehicle.IsEmpty)
+            {                                
+                StartUnboarding((MyMessage) myMessage.CreateCopy());
+            }
+        }
+
+        private void StartUnboarding(MyMessage message)
+        {
+            Vehicle vehicle = message.Vehicle;
+            vehicle.FreeDoorsCount--;
+            message.Passenger = vehicle.UnboardPassenger();
+            message.Addressee = MyAgent.UnboardingFinishedScheduler;
+            StartContinualAssistant(message);
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -41,8 +62,36 @@ namespace managers
 
 		//meta! sender="UnboardingFinishedScheduler", id="50", type="Finish"
 		public void ProcessFinish(MessageForm message)
-		{
-		}
+        {
+            var myMessage = (MyMessage) message;
+            Vehicle vehicle = myMessage.Vehicle;
+            vehicle.FreeDoorsCount++;
+
+            // notify that passenger arrived to stadium
+            Passenger passenger = myMessage.Passenger;
+            NotifyPassengerArrivedAtStadium(passenger);
+
+            if (!vehicle.IsEmpty)
+            {
+                StartUnboarding(myMessage);
+            }
+            else if (vehicle.FreeDoorsCount == vehicle.DoorsCount)
+            {
+                Response(myMessage);
+            }                        
+        }
+
+        private void NotifyPassengerArrivedAtStadium(Passenger passenger)
+        {
+            var myMessage = new MyMessage(MySim)
+            {
+                Passenger = passenger,
+                AddresseeId = SimId.ModelAgent,
+                Code = Mc.PassengerAtStadium
+            };
+
+            Notice(myMessage);
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
