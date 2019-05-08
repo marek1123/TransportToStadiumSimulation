@@ -60,6 +60,15 @@
             this.labelLineAVehicles = new System.Windows.Forms.Label();
             this.labelLineCVehicles = new System.Windows.Forms.Label();
             this.labelLineBVehicles = new System.Windows.Forms.Label();
+            this.checkBoxWaitingOnBusStop = new System.Windows.Forms.CheckBox();
+            this.numLineAMicrobuses = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numLineBMicrobuses = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numLineCMicrobuses = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridMicrobuses = new System.Windows.Forms.DataGridView();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVehicles)).BeginInit();
             this.tabEntitiesLists.SuspendLayout();
@@ -68,6 +77,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numReplicationsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineAMicrobuses)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineBMicrobuses)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineCMicrobuses)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMicrobuses)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -100,6 +114,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabEntitiesLists.Controls.Add(this.tabPage1);
             this.tabEntitiesLists.Controls.Add(this.tabPage2);
+            this.tabEntitiesLists.Controls.Add(this.tabPage3);
             this.tabEntitiesLists.Location = new System.Drawing.Point(12, 248);
             this.tabEntitiesLists.Name = "tabEntitiesLists";
             this.tabEntitiesLists.SelectedIndex = 0;
@@ -112,7 +127,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 286);
+            this.tabPage2.Size = new System.Drawing.Size(601, 286);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bus stops";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -126,7 +141,7 @@
             this.dataGridBusStops.Location = new System.Drawing.Point(6, 6);
             this.dataGridBusStops.Name = "dataGridBusStops";
             this.dataGridBusStops.RowTemplate.Height = 24;
-            this.dataGridBusStops.Size = new System.Drawing.Size(756, 277);
+            this.dataGridBusStops.Size = new System.Drawing.Size(589, 277);
             this.dataGridBusStops.TabIndex = 0;
             // 
             // buttStart
@@ -385,11 +400,118 @@
             this.labelLineBVehicles.Size = new System.Drawing.Size(0, 17);
             this.labelLineBVehicles.TabIndex = 35;
             // 
+            // checkBoxWaitingOnBusStop
+            // 
+            this.checkBoxWaitingOnBusStop.AutoSize = true;
+            this.checkBoxWaitingOnBusStop.Location = new System.Drawing.Point(145, 209);
+            this.checkBoxWaitingOnBusStop.Name = "checkBoxWaitingOnBusStop";
+            this.checkBoxWaitingOnBusStop.Size = new System.Drawing.Size(128, 21);
+            this.checkBoxWaitingOnBusStop.TabIndex = 36;
+            this.checkBoxWaitingOnBusStop.Text = "wait at bus stop";
+            this.checkBoxWaitingOnBusStop.UseVisualStyleBackColor = true;
+            this.checkBoxWaitingOnBusStop.CheckedChanged += new System.EventHandler(this.checkBoxWaitingOnBusStop_CheckedChanged);
+            // 
+            // numLineAMicrobuses
+            // 
+            this.numLineAMicrobuses.Location = new System.Drawing.Point(456, 160);
+            this.numLineAMicrobuses.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.numLineAMicrobuses.Name = "numLineAMicrobuses";
+            this.numLineAMicrobuses.Size = new System.Drawing.Size(120, 22);
+            this.numLineAMicrobuses.TabIndex = 38;
+            this.numLineAMicrobuses.ValueChanged += new System.EventHandler(this.numLineAMicrobuses_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(327, 162);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(123, 17);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "line A microbuses:";
+            // 
+            // numLineBMicrobuses
+            // 
+            this.numLineBMicrobuses.Location = new System.Drawing.Point(456, 194);
+            this.numLineBMicrobuses.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.numLineBMicrobuses.Name = "numLineBMicrobuses";
+            this.numLineBMicrobuses.Size = new System.Drawing.Size(120, 22);
+            this.numLineBMicrobuses.TabIndex = 40;
+            this.numLineBMicrobuses.ValueChanged += new System.EventHandler(this.numLineBMicrobuses_ValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(327, 196);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(123, 17);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "line B microbuses:";
+            // 
+            // numLineCMicrobuses
+            // 
+            this.numLineCMicrobuses.Location = new System.Drawing.Point(456, 226);
+            this.numLineCMicrobuses.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.numLineCMicrobuses.Name = "numLineCMicrobuses";
+            this.numLineCMicrobuses.Size = new System.Drawing.Size(120, 22);
+            this.numLineCMicrobuses.TabIndex = 42;
+            this.numLineCMicrobuses.ValueChanged += new System.EventHandler(this.numLineCMicrobuses_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(327, 228);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(123, 17);
+            this.label6.TabIndex = 41;
+            this.label6.Text = "line C microbuses:";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dataGridMicrobuses);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(601, 286);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Microbuses";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridMicrobuses
+            // 
+            this.dataGridMicrobuses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridMicrobuses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMicrobuses.Location = new System.Drawing.Point(6, 6);
+            this.dataGridMicrobuses.Name = "dataGridMicrobuses";
+            this.dataGridMicrobuses.RowTemplate.Height = 24;
+            this.dataGridMicrobuses.Size = new System.Drawing.Size(589, 277);
+            this.dataGridMicrobuses.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 575);
+            this.Controls.Add(this.numLineCMicrobuses);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.numLineBMicrobuses);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.numLineAMicrobuses);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.checkBoxWaitingOnBusStop);
             this.Controls.Add(this.labelLineBVehicles);
             this.Controls.Add(this.labelLineCVehicles);
             this.Controls.Add(this.labelLineAVehicles);
@@ -428,6 +550,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numReplicationsCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineAMicrobuses)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineBMicrobuses)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineCMicrobuses)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMicrobuses)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -467,5 +594,14 @@
         private System.Windows.Forms.Label labelLineAVehicles;
         private System.Windows.Forms.Label labelLineCVehicles;
         private System.Windows.Forms.Label labelLineBVehicles;
+        private System.Windows.Forms.CheckBox checkBoxWaitingOnBusStop;
+        private System.Windows.Forms.NumericUpDown numLineAMicrobuses;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numLineBMicrobuses;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numLineCMicrobuses;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView dataGridMicrobuses;
     }
 }

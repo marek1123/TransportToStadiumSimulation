@@ -14,6 +14,7 @@ namespace simulation
 
         #region output properties
         public List<IVehicleData> Vehicles => VehiclesAgent.AllVehicles;
+        public List<IVehicleData> Microbuses => VehiclesAgent.AllMicrobuses;
         public List<IBusStopData> BusStops => BusStopsAgent.BusStops.Cast<IBusStopData>().ToList();
 
         public bool VehiclesDataChanged { get; set; } = true;
@@ -23,8 +24,9 @@ namespace simulation
 
         #region input properties
 
-        public bool WaitingOnBusStop { get; set; } = true;
+        public bool WaitingOnBusStop { get; set; } = false;
         public List<int>[] LineVehicles { get; }
+        public int[] LineMicrobuses { get; }
         public double StartTime { get; }
         public double HockeyMatchTime { get; }
         public double EndTime { get; }
@@ -42,6 +44,7 @@ namespace simulation
 
             // init input properties
             LineVehicles = new[] { new List<int>(), new List<int>(), new List<int>() };
+            LineMicrobuses = new[] {0, 0, 0};
 
             // init configuration properties
             LinesConfiguration = new LinesConfiguration();

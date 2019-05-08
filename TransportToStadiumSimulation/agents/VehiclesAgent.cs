@@ -18,7 +18,10 @@ namespace agents
         private readonly int[] doorsCounts = { 4, 3 };
 
         public List<List<Vehicle>> LineVehicles { get; }
+        public List<List<Vehicle>> LineMicrobuses { get; }
         public List<IVehicleData> AllVehicles => LineVehicles[0].Concat(LineVehicles[1].Concat(LineVehicles[2].Cast<IVehicleData>())).ToList();
+        public List<IVehicleData> AllMicrobuses => LineMicrobuses[0].Concat(LineMicrobuses[1].Concat(LineMicrobuses[2].Cast<IVehicleData>())).ToList();
+
         public NextStopArrivalScheduler NextStopArrivalScheduler { get; set; }
 
         public VehiclesAgent(int id, Simulation mySim, Agent parent) :
@@ -27,6 +30,13 @@ namespace agents
             Init();            
 
             LineVehicles = new List<List<Vehicle>>()
+            {
+                new List<Vehicle>(),
+                new List<Vehicle>(),
+                new List<Vehicle>()
+            };
+
+            LineMicrobuses = new List<List<Vehicle>>()
             {
                 new List<Vehicle>(),
                 new List<Vehicle>(),
@@ -45,6 +55,24 @@ namespace agents
             id = CreateLineVehicles(simulation, id, 0, VehicleType.PublicCarrierVehicle);
             id = CreateLineVehicles(simulation, id, 1, VehicleType.PublicCarrierVehicle);
             id = CreateLineVehicles(simulation, id, 2, VehicleType.PublicCarrierVehicle);
+
+            id = CreateMicrobuses(simulation, id, VehicleType.PrivateCarrierVehicle);            
+        }
+
+        private int CreateMicrobuses(MySimulation simulation, int id, VehicleType type)
+        {
+            for (int line = 0; line < simulation.LineMicrobuses.Length; line++)
+            {
+                int microbusesCount = simulation.LineMicrobuses[line];
+
+                for (int i = 0; i < microbusesCount; i++)
+                {
+                    var vehicle = new Vehicle(simulation, id, type, 1, 8, new Navigation(busStopsMap.StartsOfTheLines[line]));
+                    LineMicrobuses[line].Add(vehicle);
+                    id++;
+                }
+            }            
+            return id;
         }
 
         private int CreateLineVehicles(MySimulation simulation, int id, int line, VehicleType type)
@@ -63,6 +91,7 @@ namespace agents
         public void ClearVehicles()
         {
             LineVehicles.ForEach(vehicles => vehicles.Clear());
+            LineMicrobuses.ForEach(microbuses => microbuses.Clear());
         }
 
         override public void PrepareReplication()

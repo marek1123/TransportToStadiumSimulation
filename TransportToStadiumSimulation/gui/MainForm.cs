@@ -15,6 +15,7 @@ namespace TransportToStadiumAgentSimulation.gui
         private double startTime;
         private double hockeyMatchTime;
         private double endTime;
+        private int microbusesCount = 13;
 
         public MainForm()
         {
@@ -35,6 +36,7 @@ namespace TransportToStadiumAgentSimulation.gui
         {
             initButtons();
             initTimes();
+            changeNumMicrobusesColorIfSumNotCorrect();
         }
 
         private void initButtons()
@@ -79,6 +81,13 @@ namespace TransportToStadiumAgentSimulation.gui
                 DoOnGuiThread(dataGridVehicles, () =>
                 {
                     dataGridVehicles.DataSource = vehicles;                    
+                });
+
+                var microbuses = mySimulation.Microbuses;
+                mySimulation.VehiclesDataChanged = false;
+                DoOnGuiThread(dataGridMicrobuses, () =>
+                {
+                    dataGridMicrobuses.DataSource = microbuses;
                 });
             }
 
@@ -262,6 +271,48 @@ namespace TransportToStadiumAgentSimulation.gui
                 });
             }
         }
-        #endregion
+
+        private void checkBoxWaitingOnBusStop_CheckedChanged(object sender, EventArgs e)
+        {
+            simulation.WaitingOnBusStop = checkBoxWaitingOnBusStop.Checked;            
+        }
+
+        private void numLineAMicrobuses_ValueChanged(object sender, EventArgs e)
+        {
+            simulation.LineMicrobuses[0] = (int) numLineAMicrobuses.Value;
+            changeNumMicrobusesColorIfSumNotCorrect();
+        }
+
+        private void numLineBMicrobuses_ValueChanged(object sender, EventArgs e)
+        {
+            simulation.LineMicrobuses[1] = (int) numLineBMicrobuses.Value;
+            changeNumMicrobusesColorIfSumNotCorrect();
+        }
+
+        private void numLineCMicrobuses_ValueChanged(object sender, EventArgs e)
+        {
+            simulation.LineMicrobuses[2] = (int) numLineCMicrobuses.Value;
+            changeNumMicrobusesColorIfSumNotCorrect();
+        }
+
+        private void changeNumMicrobusesColorIfSumNotCorrect()
+        {
+            int sum = (int) (numLineAMicrobuses.Value + numLineBMicrobuses.Value + numLineCMicrobuses.Value);
+
+            if (sum != microbusesCount)
+            {
+                numLineAMicrobuses.ForeColor = Color.Red;
+                numLineBMicrobuses.ForeColor = Color.Red;
+                numLineCMicrobuses.ForeColor = Color.Red;
+            }
+            else
+            {
+                numLineAMicrobuses.ForeColor = Color.Green;
+                numLineBMicrobuses.ForeColor = Color.Green;
+                numLineCMicrobuses.ForeColor = Color.Green;
+            }
+        }
+
+        #endregion        
     }
 }

@@ -35,6 +35,7 @@ namespace managers
         private void StartLineVehicles(int line)
         {
             MyAgent.LineVehicles[line].ForEach(StartVehicle);
+            MyAgent.LineMicrobuses[line].ForEach(StartVehicle);
         }
 
         private void StartVehicle(Vehicle vehicle)
