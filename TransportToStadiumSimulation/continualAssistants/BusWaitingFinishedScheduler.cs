@@ -5,11 +5,15 @@ namespace continualAssistants
 {
 	//meta! id="51"
 	public class BusWaitingFinishedScheduler : Scheduler
-	{
+    {
+        private double waitingTime = 90;
+
 		public BusWaitingFinishedScheduler(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
-		{
-		}
+        {
+            MyAgent.BusWaitingFinishedScheduler = this;
+            MyAgent.AddOwnMessage(Mc.BusWaitingFinished);
+        }
 
 		override public void PrepareReplication()
 		{
@@ -19,7 +23,9 @@ namespace continualAssistants
 
 		//meta! sender="BusStopsAgent", id="52", type="Start"
 		public void ProcessStart(MessageForm message)
-		{
+        {
+            message.Code = Mc.BusWaitingFinished;
+            Hold(waitingTime, message);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +33,9 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+                case Mc.BusWaitingFinished:
+                    AssistantFinished(message);
+                    break;
 			}
 		}
 

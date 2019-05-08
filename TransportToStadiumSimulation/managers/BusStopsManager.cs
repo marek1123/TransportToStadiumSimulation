@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Windows.Forms;
 using OSPABA;
 using simulation;
 using agents;
@@ -8,7 +9,9 @@ namespace managers
 {
 	//meta! id="4"
 	public class BusStopsManager : Manager
-	{
+    {
+        private MySimulation MySimulation => (MySimulation) MySim;
+
 		public BusStopsManager(int id, Simulation mySim, Agent myAgent) :
 			base(id, mySim, myAgent)
 		{
@@ -29,31 +32,26 @@ namespace managers
 		//meta! sender="ModelAgent", id="16", type="Request"
 		public void ProcessHandleVehicleOnBusStop(MessageForm message)
 		{            
-            StartBoarding((MyMessage) message);
-            //Response(message);
+            VehicleArrived((MyMessage) message);            
         }
 
-        private void StartBoarding(MyMessage myMessage)
+        private void VehicleArrived(MyMessage myMessage)
         {
             Vehicle vehicle = myMessage.Vehicle;
             BusStop busStop = MyAgent.BusStops[vehicle.CurrentBusStopId];
+            myMessage.BusStop = busStop;
 
-            // TODO solve waiting scenario
+            SetWaitingState(vehicle);
+
             if (busStop.IsEmpty)
             {
-                Response(myMessage); // vehicle leaves bus stop
+                HandleCanBoardButBusStopEmpty(myMessage);
                 return;
-            }
-
-            myMessage.BusStop = busStop;
-            myMessage.Addressee = MyAgent.BoardingFinishedScheduler;
+            }                        
 
             while (vehicle.FreeDoorsCount > 0 && !vehicle.IsFull && !busStop.IsEmpty)
             {
-                vehicle.FreeDoorsCount--;
-                vehicle.BoardPassenger(busStop.DequeuePassenger());
-                MyMessage messageCopy = (MyMessage) myMessage.CreateCopy();
-                StartContinualAssistant(messageCopy);                
+                StartBoarding((MyMessage)myMessage.CreateCopy());                
             }
 
             if (!vehicle.IsFull && vehicle.FreeDoorsCount > 0)
@@ -62,33 +60,39 @@ namespace managers
             }
         }
 
+        private void SetWaitingState(Vehicle vehicle)
+        {
+            if (MySimulation.WaitingOnBusStop)
+            {
+                vehicle.WaitingState = VehicleWaitingState.DidNotWait;
+            }
+            else
+            {
+                vehicle.WaitingState = VehicleWaitingState.FinishedWaiting;
+            }
+        }
+
+        private void StartWaiting(MyMessage myMessage)
+        {
+            Vehicle vehicle = myMessage.Vehicle;
+            vehicle.WaitingState = VehicleWaitingState.IsWaiting;
+            myMessage.Addressee = MyAgent.BusWaitingFinishedScheduler;
+            StartContinualAssistant(myMessage);
+        }
+
 		//meta! sender="ModelAgent", id="13", type="Notice"
 		public void ProcessPassengerArrived(MessageForm message)
         {
             var myMessage = (MyMessage) message;
             int busStopId = myMessage.BusStopId;
+            MyAgent.BusStops[busStopId].EnqueuePassenger(myMessage.Passenger);
 
             if (MyAgent.FreeBusStopsVehicles[busStopId].Count > 0)
             {
                 // TODO not first
-                MyMessage vehicleMessage = MyAgent.FreeBusStopsVehicles[busStopId].First().Value;
-                Vehicle vehicle = vehicleMessage.Vehicle;
-                BusStop busStop = MyAgent.BusStops[busStopId];
-
-                vehicle.FreeDoorsCount--;
-                vehicle.BoardPassenger(myMessage.Passenger);
-                MyMessage messageCopy = (MyMessage)vehicleMessage.CreateCopy();
-                messageCopy.Addressee = MyAgent.BoardingFinishedScheduler;
-                StartContinualAssistant(messageCopy);                
-                if (vehicle.IsFull || vehicle.FreeDoorsCount == 0)
-                {
-                    MyAgent.FreeBusStopsVehicles[busStop.Id].Remove(vehicle.Id);
-                }
-            }
-            else
-            {
-                MyAgent.BusStops[busStopId].EnqueuePassenger(myMessage.Passenger);
-            }            
+                MyMessage vehicleMessage = MyAgent.FreeBusStopsVehicles[busStopId].First().Value;                
+                StartBoarding((MyMessage) vehicleMessage.CreateCopy());                
+            }                        
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -109,44 +113,94 @@ namespace managers
 
             if (vehicle.IsFull)
             {
-                if (vehicle.FreeDoorsCount == vehicle.DoorsCount)
-                {
-                    // vehicle is full and all passengers finished boarding
-                    Response(myMessage);
-                    return;
-                }
-
-                // vehicle is full but there are still passengers boarding
+                HandleVehicleFull(myMessage);                
                 return;
             }
 
             // vehicle is not full and there are free doors
-
-            // bus stop is empty
-            if (busStop.IsEmpty && !MyAgent.FreeBusStopsVehicles[busStop.Id].ContainsKey(vehicle.Id))
+            if (busStop.IsEmpty)
             {
-               MyAgent.FreeBusStopsVehicles[busStop.Id].Add(vehicle.Id, myMessage);
-               return;
+                HandleCanBoardButBusStopEmpty(myMessage);
+                return;
             }
 
-            if (!busStop.IsEmpty)            
+            // vehicle is not full, freeDoorsCount > 0, bus stop is not empty
+            StartBoarding(myMessage);
+        }
+
+        /// <summary>
+        /// Vehicle is not full, has minimally one free door and bus stop is not empty.
+        /// </summary>
+        /// <param name="message"></param>
+        private void StartBoarding(MyMessage myMessage)
+        {
+            Vehicle vehicle = myMessage.Vehicle;
+            BusStop busStop = myMessage.BusStop;
+
+            myMessage.Addressee = MyAgent.BoardingFinishedScheduler;
+            vehicle.FreeDoorsCount--;
+            vehicle.BoardPassenger(busStop.DequeuePassenger());
+            StartContinualAssistant(myMessage);
+
+            if (vehicle.IsFull || vehicle.FreeDoorsCount == 0)
             {
-                // bus stop is not empty
-                myMessage.Addressee = MyAgent.BoardingFinishedScheduler;
-                vehicle.FreeDoorsCount--;
-                vehicle.BoardPassenger(busStop.DequeuePassenger());                
-                StartContinualAssistant(message);
-                if (vehicle.IsFull)
-                {
-                    MyAgent.FreeBusStopsVehicles[busStop.Id].Remove(vehicle.Id);
-                }
+                MyAgent.FreeBusStopsVehicles[busStop.Id].Remove(vehicle.Id);
+            }
+        }
+
+        private void HandleCanBoardButBusStopEmpty(MyMessage myMessage)
+        {
+            Vehicle vehicle = myMessage.Vehicle;
+            BusStop busStop = myMessage.BusStop;
+
+            if (vehicle.WaitingState == VehicleWaitingState.FinishedWaiting && vehicle.FreeDoorsCount == vehicle.DoorsCount)
+            {                
+                VehicleLeaves(myMessage);
+                return;
+            }
+
+            if (vehicle.WaitingState == VehicleWaitingState.DidNotWait)
+            {
+                StartWaiting((MyMessage)myMessage.CreateCopy());
+            }
+
+            if (!MyAgent.FreeBusStopsVehicles[busStop.Id].ContainsKey(vehicle.Id))
+            {
+                MyAgent.FreeBusStopsVehicles[busStop.Id].Add(vehicle.Id, myMessage);
             }            
+        }
+
+        private void HandleVehicleFull(MyMessage myMessage)
+        {
+            Vehicle vehicle = myMessage.Vehicle;
+
+            if (vehicle.FreeDoorsCount == vehicle.DoorsCount)
+            {
+                // vehicle is full and all passengers finished boarding
+                VehicleLeaves(myMessage);                
+            }            
+        }
+
+        private void VehicleLeaves(MyMessage myMessage)
+        {
+            BusStop busStop = myMessage.BusStop;
+            Vehicle vehicle = myMessage.Vehicle;
+            MyAgent.FreeBusStopsVehicles[busStop.Id].Remove(vehicle.Id);
+            Response(myMessage);
         }
 
 		//meta! sender="BusWaitingFinishedScheduler", id="52", type="Finish"
 		public void ProcessFinishBusWaitingFinishedScheduler(MessageForm message)
-		{
-		}
+        {
+            var myMessage = (MyMessage) message;
+            Vehicle vehicle = myMessage.Vehicle;
+            vehicle.WaitingState = VehicleWaitingState.FinishedWaiting;
+
+            if (vehicle.FreeDoorsCount == vehicle.DoorsCount)
+            {
+                VehicleLeaves(myMessage);
+            }
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()

@@ -22,7 +22,8 @@ namespace simulation
         #endregion
 
         #region input properties
-        public bool WaitingOnBusStop { get; set; }
+
+        public bool WaitingOnBusStop { get; set; } = true;
         public List<int>[] LineVehicles { get; }
         public double StartTime { get; }
         public double HockeyMatchTime { get; }

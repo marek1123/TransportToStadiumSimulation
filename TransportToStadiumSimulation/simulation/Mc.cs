@@ -13,5 +13,6 @@ namespace simulation
         public const int VehicleArrivedToBusStop = 1;
         public const int PassengerBoarded = 2;
         public const int PassengerUnboarded = 3;
+        public const int BusWaitingFinished = 4;
     }
 }

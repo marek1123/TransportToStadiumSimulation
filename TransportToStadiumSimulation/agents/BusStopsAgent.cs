@@ -12,6 +12,7 @@ namespace agents
     {
         public List<BusStop> BusStops;
         public BoardingFinishedScheduler BoardingFinishedScheduler { get; set; }
+        public BusWaitingFinishedScheduler BusWaitingFinishedScheduler { get; set; }
         public List<Dictionary<int, MyMessage>> FreeBusStopsVehicles { get; private set; } // id of vehicle -> myMessage (contains vehicle)
         
         public BusStopsAgent(int id, Simulation mySim, Agent parent) :
