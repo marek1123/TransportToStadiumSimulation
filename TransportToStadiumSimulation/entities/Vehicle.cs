@@ -21,10 +21,12 @@ namespace TransportToStadiumSimulation.entities
         public string LastBustStop => Navigation.CurrentBusStopNavigationNode.Name;
         public string NextBusStop => Navigation.Next.Name;
         public int Capacity { get; }
-        public int PassengersCount { get; }
+        public int PassengersCount => passengers.Count;
         public string PercentageOfRideFinished => PercentsFormatter.ToPercents(PercentageFinished());
-        #endregion        
+        #endregion
 
+        public int FreeDoorsCount { get; set; }
+        public int CurrentBusStopId => Navigation.CurrentBusStopNavigationNode.Id;
         public bool IsAtStadium => Navigation.CurrentBusStopNavigationNode.Name == "st";
         public double TimeToNext => Navigation.TimeToNext;
         public bool IsFull => passengers.Count >= Capacity;
@@ -39,9 +41,8 @@ namespace TransportToStadiumSimulation.entities
             Type = type;
             DoorsCount = doorsCount;
             Capacity = capacity;
-            Id = id;
-            PassengersCount = 0;
-
+            Id = id;            
+            FreeDoorsCount = doorsCount;
             passengers = new Stack<Passenger>();
         }
 
@@ -61,6 +62,18 @@ namespace TransportToStadiumSimulation.entities
         {
             base.EnterState(newState);
             mySimulation.VehiclesDataChanged = true;
+        }
+
+        public void BoardPassenger(Passenger passenger)
+        {
+            mySimulation.VehiclesDataChanged = true;
+            passengers.Push(passenger);
+        }
+
+        public Passenger UnboardPassenger()
+        {
+            mySimulation.VehiclesDataChanged = true;
+            return passengers.Pop();
         }
     }
 }

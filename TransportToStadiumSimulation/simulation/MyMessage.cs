@@ -6,6 +6,7 @@ namespace simulation
 	public class MyMessage : MessageForm
 	{
         public Vehicle Vehicle { get; set; }
+        public BusStop BusStop { get; set; }
         public Passenger Passenger { get; set; }
         public int BusStopId { get; set; }
 
@@ -33,6 +34,7 @@ namespace simulation
             Vehicle = original.Vehicle;
             Passenger = original.Passenger;
             BusStopId = original.BusStopId;
+            BusStop = original.BusStop;
         }
 	}
 }

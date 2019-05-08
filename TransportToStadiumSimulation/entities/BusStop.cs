@@ -6,12 +6,14 @@ namespace TransportToStadiumSimulation.entities
 {
     public class BusStop: IBusStopData
     {
-        public int Id { get; }
+        #region IBusStopData        
         public string Name { get; }
-        public int PassengersCount => passengerQueue.Count;       
-
+        public int PassengersCount => passengerQueue.Count;
         public int MaxPassengersCount { get; }
+        #endregion        
 
+        public int Id { get; }
+        public bool IsEmpty => passengerQueue.Count == 0;
         private readonly Queue<Passenger> passengerQueue;
         private readonly MySimulation mySimulation;
 

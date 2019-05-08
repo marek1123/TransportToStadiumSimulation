@@ -44,7 +44,9 @@ namespace simulation
             // init configuration properties
             LinesConfiguration = new LinesConfiguration();
            
-            ExponentialRNG.SetSeedGen(new Random());
+            Random seedGenerator = new Random();
+            ExponentialRNG.SetSeedGen(seedGenerator);
+            TriangularRNG.SetSeedGen(seedGenerator);
             Init();            
         }        
 

@@ -11,12 +11,15 @@ namespace agents
 	public class BusStopsAgent : Agent
     {
         public List<BusStop> BusStops;
-
+        public BoardingFinishedScheduler BoardingFinishedScheduler { get; set; }
+        public List<Dictionary<int, MyMessage>> FreeBusStopsVehicles { get; private set; } // id of vehicle -> myMessage (contains vehicle)
+        
         public BusStopsAgent(int id, Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{
 			Init();
             BusStops = new List<BusStop>();
+            FreeBusStopsVehicles = new List<Dictionary<int, MyMessage>>();
         }
 
         private void CreateBusStops()
@@ -26,7 +29,8 @@ namespace agents
 
             foreach (var busStopConfiguration in mySimulation.LinesConfiguration.BusStopConfigurationsById)
             {                
-                BusStops.Add(new BusStop(mySimulation, busStopConfiguration.Id, busStopConfiguration.Name, busStopConfiguration.MaxPassengersCount));                                
+                BusStops.Add(new BusStop(mySimulation, busStopConfiguration.Id, busStopConfiguration.Name, busStopConfiguration.MaxPassengersCount));                                                
+                FreeBusStopsVehicles.Add(new Dictionary<int, MyMessage>());
             }
         }        
 
