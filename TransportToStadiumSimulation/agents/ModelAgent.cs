@@ -23,6 +23,7 @@ namespace agents
 		private void Init()
 		{
 			new ModelManager(SimId.ModelManager, MySim, this);
+			AddOwnMessage(Mc.PassengerAtStadium);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 			AddOwnMessage(Mc.PassengerArrived);
 		}

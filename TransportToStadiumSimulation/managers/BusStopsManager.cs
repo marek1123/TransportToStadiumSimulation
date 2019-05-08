@@ -156,12 +156,12 @@ namespace managers
 				ProcessFinish(message);
 			break;
 
-			case Mc.PassengerArrived:
-				ProcessPassengerArrived(message);
-			break;
-
 			case Mc.HandleVehicleOnBusStop:
 				ProcessHandleVehicleOnBusStop(message);
+			break;
+
+			case Mc.PassengerArrived:
+				ProcessPassengerArrived(message);
 			break;
 
 			default:

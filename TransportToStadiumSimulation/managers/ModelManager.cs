@@ -66,6 +66,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="StadiumAgent", id="42", type="Notice"
+		public void ProcessPassengerAtStadium(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -75,25 +80,29 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.PassengerArrived:
-				ProcessPassengerArrived(message);
-			break;
-
 			case Mc.HandleVehicleOnBusStop:
 				switch (message.Sender.Id)
 				{
-				case SimId.VehiclesAgent:
-					ProcessHandleVehicleOnBusStopVehiclesAgent(message);
+				case SimId.StadiumAgent:
+					ProcessHandleVehicleOnBusStopStadiumAgent(message);
 				break;
 
 				case SimId.BusStopsAgent:
 					ProcessHandleVehicleOnBusStopBusStopsAgent(message);
 				break;
 
-				case SimId.StadiumAgent:
-					ProcessHandleVehicleOnBusStopStadiumAgent(message);
+				case SimId.VehiclesAgent:
+					ProcessHandleVehicleOnBusStopVehiclesAgent(message);
 				break;
 				}
+			break;
+
+			case Mc.PassengerAtStadium:
+				ProcessPassengerAtStadium(message);
+			break;
+
+			case Mc.PassengerArrived:
+				ProcessPassengerArrived(message);
 			break;
 
 			default:

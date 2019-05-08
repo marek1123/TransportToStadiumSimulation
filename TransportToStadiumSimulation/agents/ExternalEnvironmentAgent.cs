@@ -66,6 +66,7 @@ namespace agents
 		{
 			new ExternalEnvironmentManager(SimId.ExternalEnvironmentManager, MySim, this);
 			new PassengerArrivalProcess(SimId.PassengerArrivalProcess, MySim, this);
+			AddOwnMessage(Mc.PassengerAtStadium);
 			AddOwnMessage(Mc.PassengerArrived);
 		}
 		//meta! tag="end"

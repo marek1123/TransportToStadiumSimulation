@@ -45,6 +45,11 @@ namespace managers
             Notice(message);
 		}
 
+		//meta! sender="ModelAgent", id="43", type="Notice"
+		public void ProcessPassengerAtStadium(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -60,6 +65,10 @@ namespace managers
 
 			case Mc.PassengerArrived:
 				ProcessPassengerArrived(message);
+			break;
+
+			case Mc.PassengerAtStadium:
+				ProcessPassengerAtStadium(message);
 			break;
 
 			default:

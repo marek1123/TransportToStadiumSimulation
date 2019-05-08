@@ -94,12 +94,12 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.HandleVehicleOnBusStop:
-				ProcessHandleVehicleOnBusStop(message);
-			break;
-
 			case Mc.Finish:
 				ProcessFinish(message);
+			break;
+
+			case Mc.HandleVehicleOnBusStop:
+				ProcessHandleVehicleOnBusStop(message);
 			break;
 
 			default:
