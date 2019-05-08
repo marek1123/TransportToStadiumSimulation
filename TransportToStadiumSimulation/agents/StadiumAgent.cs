@@ -23,6 +23,7 @@ namespace agents
 		private void Init()
 		{
 			new StadiumManager(SimId.StadiumManager, MySim, this);
+			new UnboardingFinishedScheduler(SimId.UnboardingFinishedScheduler, MySim, this);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 		}
 		//meta! tag="end"

@@ -39,6 +39,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="UnboardingFinishedScheduler", id="50", type="Finish"
+		public void ProcessFinish(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -50,6 +55,10 @@ namespace managers
 			{
 			case Mc.HandleVehicleOnBusStop:
 				ProcessHandleVehicleOnBusStop(message);
+			break;
+
+			case Mc.Finish:
+				ProcessFinish(message);
 			break;
 
 			default:
