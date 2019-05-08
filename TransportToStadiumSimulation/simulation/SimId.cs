@@ -15,6 +15,7 @@ namespace simulation
 		public const int StadiumManager = 105;
 		public const int ExternalEnvironmentManager = 106;
 		public const int UnboardingFinishedScheduler = 1004;
+		public const int BusWaitingFinishedScheduler = 1005;
 		public const int BoardingFinishedScheduler = 1003;
 		public const int NextStopArrivalScheduler = 1001;
 		public const int PassengerArrivalProcess = 1002;

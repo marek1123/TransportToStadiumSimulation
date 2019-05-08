@@ -100,7 +100,7 @@ namespace managers
 		}
 
 		//meta! sender="BoardingFinishedScheduler", id="40", type="Finish"
-		public void ProcessFinish(MessageForm message)
+		public void ProcessFinishBoardingFinishedScheduler(MessageForm message)
         {
             var myMessage = (MyMessage) message;
             Vehicle vehicle = myMessage.Vehicle;
@@ -143,6 +143,11 @@ namespace managers
             }            
         }
 
+		//meta! sender="BusWaitingFinishedScheduler", id="52", type="Finish"
+		public void ProcessFinishBusWaitingFinishedScheduler(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -153,7 +158,16 @@ namespace managers
 			switch (message.Code)
 			{
 			case Mc.Finish:
-				ProcessFinish(message);
+				switch (message.Sender.Id)
+				{
+				case SimId.BoardingFinishedScheduler:
+					ProcessFinishBoardingFinishedScheduler(message);
+				break;
+
+				case SimId.BusWaitingFinishedScheduler:
+					ProcessFinishBusWaitingFinishedScheduler(message);
+				break;
+				}
 			break;
 
 			case Mc.HandleVehicleOnBusStop:
