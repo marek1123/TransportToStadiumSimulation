@@ -1,21 +1,25 @@
+using System.Runtime.Versioning;
 using OSPABA;
 using simulation;
 using agents;
 using OSPRNG;
+using TransportToStadiumSimulation.entities;
 
 namespace continualAssistants
 {
 	//meta! id="39"
 	public class BoardingFinishedScheduler : Scheduler
     {
-        private TriangularRNG boardingTimeGenerator;
+        private TriangularRNG busBoardingTimeGenerator;
+        private UniformContinuousRNG microbusBoardingTimeGenerator;
 
 		public BoardingFinishedScheduler(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
         {
             MyAgent.BoardingFinishedScheduler = this;
             MyAgent.AddOwnMessage(Mc.PassengerBoarded);
-            boardingTimeGenerator = new TriangularRNG(0.6, 1.2, 4.2);
+            busBoardingTimeGenerator = new TriangularRNG(0.6, 1.2, 4.2);
+            microbusBoardingTimeGenerator = new UniformContinuousRNG(6, 10);
         }
 
 		override public void PrepareReplication()
@@ -27,8 +31,22 @@ namespace continualAssistants
 		//meta! sender="BusStopsAgent", id="40", type="Start"
 		public void ProcessStart(MessageForm message)
         {
+            var myMessage = (MyMessage) message;
+            Vehicle vehicle = myMessage.Vehicle;
+
+            double duration;
+
+            if (vehicle.Type == VehicleType.PublicCarrierVehicle)
+            {
+                duration = busBoardingTimeGenerator.Sample();
+            }
+            else
+            {
+                duration = microbusBoardingTimeGenerator.Sample();
+            }
+
             message.Code = Mc.PassengerBoarded;
-            Hold(boardingTimeGenerator.Sample(), message);
+            Hold(duration, message);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"

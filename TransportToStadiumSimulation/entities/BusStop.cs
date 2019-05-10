@@ -37,6 +37,11 @@ namespace TransportToStadiumSimulation.entities
             Passenger passenger = passengerQueue.Dequeue();
             mySimulation.BusStopsDataChanged = true;
             return passenger;            
-        }      
+        }
+
+        public Passenger PeekPassenger()
+        {
+            return passengerQueue.Peek();
+        }
     }
 }

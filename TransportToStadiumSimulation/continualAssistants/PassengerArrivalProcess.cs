@@ -51,7 +51,7 @@ namespace continualAssistants
             }
 
             myMessage.Addressee = MyAgent;
-            myMessage.Passenger = new Passenger();
+            myMessage.Passenger = new Passenger(MySim);
             MyAgent.counts[busStopId]++;
             Notice(myMessage);
 

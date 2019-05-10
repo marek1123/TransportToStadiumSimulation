@@ -10,6 +10,8 @@ namespace managers
 	//meta! id="4"
 	public class BusStopsManager : Manager
     {
+        private static double boardMicrobusIfWaitedTime = 360;
+
         private MySimulation MySimulation => (MySimulation) MySim;
 
 		public BusStopsManager(int id, Simulation mySim, Agent myAgent) :
@@ -51,7 +53,7 @@ namespace managers
 
             while (vehicle.FreeDoorsCount > 0 && !vehicle.IsFull && !busStop.IsEmpty)
             {
-                StartBoarding((MyMessage)myMessage.CreateCopy());                
+                TryStartBoarding((MyMessage)myMessage.CreateCopy());                
             }
 
             if (!vehicle.IsFull && vehicle.FreeDoorsCount > 0)
@@ -62,7 +64,7 @@ namespace managers
 
         private void SetWaitingState(Vehicle vehicle)
         {
-            if (MySimulation.WaitingOnBusStop)
+            if (MySimulation.WaitingOnBusStop && vehicle.Type == VehicleType.PublicCarrierVehicle)
             {
                 vehicle.WaitingState = VehicleWaitingState.DidNotWait;
             }
@@ -91,7 +93,7 @@ namespace managers
             {
                 // TODO not first
                 MyMessage vehicleMessage = MyAgent.FreeBusStopsVehicles[busStopId].First().Value;                
-                StartBoarding((MyMessage) vehicleMessage.CreateCopy());                
+                TryStartBoarding((MyMessage) vehicleMessage.CreateCopy());                
             }                        
         }
 
@@ -125,17 +127,25 @@ namespace managers
             }
 
             // vehicle is not full, freeDoorsCount > 0, bus stop is not empty
-            StartBoarding(myMessage);
+            TryStartBoarding(myMessage);
         }
 
         /// <summary>
         /// Vehicle is not full, has minimally one free door and bus stop is not empty.
         /// </summary>
         /// <param name="message"></param>
-        private void StartBoarding(MyMessage myMessage)
+        private void TryStartBoarding(MyMessage myMessage)
         {
             Vehicle vehicle = myMessage.Vehicle;
             BusStop busStop = myMessage.BusStop;
+
+            // if private vehicle
+            if (vehicle.Type == VehicleType.PrivateCarrierVehicle &&
+                busStop.PeekPassenger().SumTimeInState(PassengerState.WaitingAtBusStop) < boardMicrobusIfWaitedTime)
+            {
+                Response(myMessage);
+                return;
+            }
 
             myMessage.Addressee = MyAgent.BoardingFinishedScheduler;
             vehicle.FreeDoorsCount--;

@@ -2,19 +2,22 @@ using OSPABA;
 using simulation;
 using agents;
 using OSPRNG;
+using TransportToStadiumSimulation.entities;
 
 namespace continualAssistants
 {
 	//meta! id="49"
 	public class UnboardingFinishedScheduler : Scheduler
 	{
-        private TriangularRNG unboardingTimeGenerator;
+        private TriangularRNG busUnboardingTimeGenerator;
+        private ExponentialRNG microbusUnboardingTimeGenerator; // TODO change distribution
 
         public UnboardingFinishedScheduler(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
         {
             MyAgent.UnboardingFinishedScheduler = this;
-            unboardingTimeGenerator = new TriangularRNG(0.6, 1.2, 4.2);
+            busUnboardingTimeGenerator = new TriangularRNG(0.6, 1.2, 4.2);
+            microbusUnboardingTimeGenerator = new ExponentialRNG(4);
             MyAgent.AddOwnMessage(Mc.PassengerUnboarded);
         }
 
@@ -27,8 +30,23 @@ namespace continualAssistants
 		//meta! sender="StadiumAgent", id="50", type="Start"
 		public void ProcessStart(MessageForm message)
         {
+            var myMessage = (MyMessage) message;
+
+            var vehicle = myMessage.Vehicle;
+
+            double duration;
+
+            if (vehicle.Type == VehicleType.PublicCarrierVehicle)
+            {
+                duration = busUnboardingTimeGenerator.Sample();
+            }
+            else
+            {
+                duration = microbusUnboardingTimeGenerator.Sample();
+            }
+
             message.Code = Mc.PassengerUnboarded;
-            Hold(unboardingTimeGenerator.Sample(), message);
+            Hold(duration, message);
         }
 
 		//meta! userInfo="Process messages defined in code", id="0"
