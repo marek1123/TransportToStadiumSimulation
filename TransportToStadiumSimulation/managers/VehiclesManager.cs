@@ -12,7 +12,8 @@ namespace managers
 			base(id, mySim, myAgent)
 		{
 			Init();
-		}
+            MyAgent.VehicleManager = this;
+        }
 
 		override public void PrepareReplication()
 		{
@@ -20,11 +21,7 @@ namespace managers
             // Setup component for the next replication
             var simulation = (MySimulation)MySim;
             MyAgent.ClearVehicles();
-            MyAgent.CreateVehicles(simulation);
-
-            StartLineVehicles(0);
-            StartLineVehicles(1);
-            StartLineVehicles(2);
+            MyAgent.CreateVehicles(simulation);            
 
             if (PetriNet != null)
 			{
@@ -32,22 +29,42 @@ namespace managers
 			}
 		}
 
-        private void StartLineVehicles(int line)
+        public void ScheduleVehiclesStart()
         {
-            MyAgent.LineVehicles[line].ForEach(StartVehicle);
-            MyAgent.LineMicrobuses[line].ForEach(StartVehicle);
+            // start buses
+            for (int line = 0; line < MyAgent.LineVehicles.Count; line++)
+            {
+                ScheduleLineBusesStart(line);
+            }
         }
 
-        private void StartVehicle(Vehicle vehicle)
+        private void ScheduleLineBusesStart(int line)
         {
-            MyMessage message = new MyMessage(MySim)
+            if (MyAgent.LineVehicles[line].Count == 0)
+                return;
+
+            MySimulation mySimulation = (MySimulation) MySim;
+
+            MyMessage myMessage = new MyMessage(MySim)
             {
-                Code = Mc.HandleVehicleOnBusStop,
-                AddresseeId = SimId.ModelAgent,
-                Vehicle = vehicle
+                Addressee = MyAgent.VehicleStartScheduler
             };
-            Request(message);
-        }
+
+            double startTime = mySimulation.HockeyMatchTime - mySimulation.LineBusesStartTimes[line][0];
+
+            for (int vehicleIdx = 0; vehicleIdx < MyAgent.LineVehicles[line].Count; vehicleIdx++)
+            {
+                if (vehicleIdx != 0)
+                {
+                    startTime += mySimulation.LineBusesStartTimes[line][vehicleIdx];
+                }
+
+                var messageCopy = (MyMessage) myMessage.CreateCopy();
+                messageCopy.Vehicle = MyAgent.LineVehicles[line][vehicleIdx];
+                messageCopy.Time = startTime;
+                StartContinualAssistant(messageCopy);
+            }
+        }                
 
 		//meta! sender="ModelAgent", id="14", type="Response"
 		public void ProcessHandleVehicleOnBusStop(MessageForm message)
@@ -65,7 +82,7 @@ namespace managers
 		}
 
 		//meta! sender="NextStopArrivalScheduler", id="25", type="Finish"
-		public void ProcessFinish(MessageForm message)
+		public void ProcessFinishNextStopArrivalScheduler(MessageForm message)
 		{
             var myMessage = (MyMessage)message;
             Vehicle vehicle = myMessage.Vehicle;
@@ -84,10 +101,23 @@ namespace managers
                 StartContinualAssistant(message);
             }
             
+        }		
+
+		//meta! sender="VehicleStartScheduler", id="61", type="Finish"
+		public void ProcessFinishVehicleStartScheduler(MessageForm message)
+		{
+            StartVehicle(message);
+		}
+
+        private void StartVehicle(MessageForm message)
+        {
+            message.Code = Mc.HandleVehicleOnBusStop;
+            message.AddresseeId = SimId.ModelAgent;
+            Request(message);
         }
 
-		//meta! userInfo="Generated code: do not modify", tag="begin"
-		public void Init()
+        //meta! userInfo="Generated code: do not modify", tag="begin"
+        public void Init()
 		{
 		}
 
@@ -95,12 +125,21 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Finish:
-				ProcessFinish(message);
-			break;
-
 			case Mc.HandleVehicleOnBusStop:
 				ProcessHandleVehicleOnBusStop(message);
+			break;
+
+			case Mc.Finish:
+				switch (message.Sender.Id)
+				{
+				case SimId.VehicleStartScheduler:
+					ProcessFinishVehicleStartScheduler(message);
+				break;
+
+				case SimId.NextStopArrivalScheduler:
+					ProcessFinishNextStopArrivalScheduler(message);
+				break;
+				}
 			break;
 
 			default:

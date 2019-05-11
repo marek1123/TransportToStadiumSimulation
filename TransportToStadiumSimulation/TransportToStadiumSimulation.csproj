@@ -60,6 +60,7 @@
     <Compile Include="continualAssistants\NextStopArrivalScheduler.cs" />
     <Compile Include="continualAssistants\PassengerArrivalProcess.cs" />
     <Compile Include="continualAssistants\UnboardingFinishedScheduler.cs" />
+    <Compile Include="continualAssistants\VehicleStartScheduler.cs" />
     <Compile Include="dataObjects\IBusStopData.cs" />
     <Compile Include="dataObjects\IVehicleData.cs" />
     <Compile Include="entities\BusStop.cs" />

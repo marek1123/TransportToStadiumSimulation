@@ -52,8 +52,8 @@ namespace agents
 		private void Init()
 		{
 			new BusStopsManager(SimId.BusStopsManager, MySim, this);
-			new BusWaitingFinishedScheduler(SimId.BusWaitingFinishedScheduler, MySim, this);
 			new BoardingFinishedScheduler(SimId.BoardingFinishedScheduler, MySim, this);
+			new BusWaitingFinishedScheduler(SimId.BusWaitingFinishedScheduler, MySim, this);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 			AddOwnMessage(Mc.PassengerArrived);
 		}

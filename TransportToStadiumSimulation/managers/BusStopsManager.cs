@@ -196,6 +196,7 @@ namespace managers
             BusStop busStop = myMessage.BusStop;
             Vehicle vehicle = myMessage.Vehicle;
             MyAgent.FreeBusStopsVehicles[busStop.Id].Remove(vehicle.Id);
+            myMessage.Code = Mc.HandleVehicleOnBusStop;
             Response(myMessage);
         }
 
@@ -221,6 +222,14 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.HandleVehicleOnBusStop:
+				ProcessHandleVehicleOnBusStop(message);
+			break;
+
+			case Mc.PassengerArrived:
+				ProcessPassengerArrived(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -232,14 +241,6 @@ namespace managers
 					ProcessFinishBusWaitingFinishedScheduler(message);
 				break;
 				}
-			break;
-
-			case Mc.HandleVehicleOnBusStop:
-				ProcessHandleVehicleOnBusStop(message);
-			break;
-
-			case Mc.PassengerArrived:
-				ProcessPassengerArrived(message);
 			break;
 
 			default:

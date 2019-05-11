@@ -23,7 +23,9 @@ namespace agents
         public List<IVehicleData> AllMicrobuses => LineMicrobuses[0].Concat(LineMicrobuses[1].Concat(LineMicrobuses[2].Cast<IVehicleData>())).ToList();
 
         public NextStopArrivalScheduler NextStopArrivalScheduler { get; set; }
-
+        public VehicleStartScheduler VehicleStartScheduler { get; set; }
+        public VehiclesManager VehicleManager { get; set; }
+        
         public VehiclesAgent(int id, Simulation mySim, Agent parent) :
             base(id, mySim, parent)
         {
@@ -98,12 +100,14 @@ namespace agents
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
+            VehicleManager.ScheduleVehiclesStart();
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		private void Init()
 		{
 			new VehiclesManager(SimId.VehiclesManager, MySim, this);
+			new VehicleStartScheduler(SimId.VehicleStartScheduler, MySim, this);
 			new NextStopArrivalScheduler(SimId.NextStopArrivalScheduler, MySim, this);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 		}

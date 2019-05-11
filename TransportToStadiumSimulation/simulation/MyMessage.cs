@@ -9,6 +9,7 @@ namespace simulation
         public BusStop BusStop { get; set; }
         public Passenger Passenger { get; set; }
         public int BusStopId { get; set; }
+        public double Time { get; set; }
 
         public MyMessage(Simulation sim) :
 			base(sim)
@@ -35,6 +36,7 @@ namespace simulation
             Passenger = original.Passenger;
             BusStopId = original.BusStopId;
             BusStop = original.BusStop;
+            Time = original.Time;
         }
 	}
 }

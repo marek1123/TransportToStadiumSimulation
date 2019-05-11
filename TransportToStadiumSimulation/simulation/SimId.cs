@@ -18,6 +18,7 @@ namespace simulation
 		public const int BusWaitingFinishedScheduler = 1005;
 		public const int BoardingFinishedScheduler = 1003;
 		public const int NextStopArrivalScheduler = 1001;
+		public const int VehicleStartScheduler = 1007;
 		public const int PassengerArrivalProcess = 1002;
 		//meta! tag="end"
 	}

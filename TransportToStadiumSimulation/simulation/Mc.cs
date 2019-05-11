@@ -14,5 +14,6 @@ namespace simulation
         public const int PassengerBoarded = 2;
         public const int PassengerUnboarded = 3;
         public const int BusWaitingFinished = 4;
+        public const int VehicleStarted = 5;
     }
 }

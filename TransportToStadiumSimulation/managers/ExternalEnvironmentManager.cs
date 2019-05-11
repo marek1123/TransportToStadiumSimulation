@@ -59,16 +59,16 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Finish:
-				ProcessFinish(message);
-			break;
-
 			case Mc.PassengerArrived:
 				ProcessPassengerArrived(message);
 			break;
 
 			case Mc.PassengerAtStadium:
 				ProcessPassengerAtStadium(message);
+			break;
+
+			case Mc.Finish:
+				ProcessFinish(message);
 			break;
 
 			default:

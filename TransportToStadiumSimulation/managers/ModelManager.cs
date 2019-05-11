@@ -83,26 +83,26 @@ namespace managers
 			case Mc.HandleVehicleOnBusStop:
 				switch (message.Sender.Id)
 				{
-				case SimId.StadiumAgent:
-					ProcessHandleVehicleOnBusStopStadiumAgent(message);
+				case SimId.VehiclesAgent:
+					ProcessHandleVehicleOnBusStopVehiclesAgent(message);
 				break;
 
 				case SimId.BusStopsAgent:
 					ProcessHandleVehicleOnBusStopBusStopsAgent(message);
 				break;
 
-				case SimId.VehiclesAgent:
-					ProcessHandleVehicleOnBusStopVehiclesAgent(message);
+				case SimId.StadiumAgent:
+					ProcessHandleVehicleOnBusStopStadiumAgent(message);
 				break;
 				}
 			break;
 
-			case Mc.PassengerAtStadium:
-				ProcessPassengerAtStadium(message);
-			break;
-
 			case Mc.PassengerArrived:
 				ProcessPassengerArrived(message);
+			break;
+
+			case Mc.PassengerAtStadium:
+				ProcessPassengerAtStadium(message);
 			break;
 
 			default:
