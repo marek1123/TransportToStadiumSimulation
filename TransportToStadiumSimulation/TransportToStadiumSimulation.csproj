@@ -96,6 +96,7 @@
     <Compile Include="simulation\SimId.cs" />
     <Compile Include="statistics\Timer.cs" />
     <Compile Include="utils\PercentsFormatter.cs" />
+    <Compile Include="utils\StatFormatter.cs" />
     <Compile Include="utils\StringParser.cs" />
     <Compile Include="utils\TimeFormatter.cs" />
     <EmbeddedResource Include="gui\MainForm.resx">

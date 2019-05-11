@@ -3,6 +3,7 @@ using continualAssistants;
 using OSPABA;
 using simulation;
 using managers;
+using OSPStat;
 using TransportToStadiumSimulation.entities;
 
 namespace agents
@@ -16,12 +17,15 @@ namespace agents
         public List<BusStop> BusStops;
         public List<Dictionary<int, MyMessage>> FreeBusStopsVehicles { get; private set; } // id of vehicle -> myMessage (contains vehicle)
         
+        public Stat WaitingTimeRepStat { get; }
+
         public BusStopsAgent(int id, Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{
 			Init();
             BusStops = new List<BusStop>();
             FreeBusStopsVehicles = new List<Dictionary<int, MyMessage>>();
+            WaitingTimeRepStat = new Stat();            
             CreateBusStops();
         }
 
@@ -43,6 +47,9 @@ namespace agents
 			// Setup component for the next replication
             FreeBusStopsVehicles.ForEach(dict => dict.Clear());
             BusStops.ForEach(busStop => busStop.PrepareReplication());
+
+            // reset statistics
+            WaitingTimeRepStat.Clear();
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

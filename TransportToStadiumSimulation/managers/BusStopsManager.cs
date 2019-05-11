@@ -149,7 +149,13 @@ namespace managers
 
             myMessage.Addressee = MyAgent.BoardingFinishedScheduler;
             vehicle.FreeDoorsCount--;
-            vehicle.BoardPassenger(busStop.DequeuePassenger());
+
+            // board passenger and update stat
+            Passenger passenger = busStop.DequeuePassenger();
+            passenger.EnterState(PassengerState.Riding);
+            MyAgent.WaitingTimeRepStat.AddSample(passenger.SumTimeInState(PassengerState.WaitingAtBusStop));
+            vehicle.BoardPassenger(passenger);
+
             StartContinualAssistant(myMessage);
 
             if (vehicle.IsFull || vehicle.FreeDoorsCount == 0)

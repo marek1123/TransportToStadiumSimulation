@@ -4,6 +4,7 @@ using System.Linq;
 using OSPABA;
 using agents;
 using OSPRNG;
+using OSPStat;
 using TransportToStadiumSimulation.dataObjects;
 using TransportToStadiumSimulation.simulation.configuration;
 
@@ -41,6 +42,13 @@ namespace simulation
         public LinesConfiguration LinesConfiguration { get; }
         #endregion
 
+        #region statistics
+
+        public Stat AveragePassengerWaitingTimeRep => BusStopsAgent.WaitingTimeRepStat;
+        public Stat AveragePassengerWaitingTimeSim { get; }
+
+        #endregion
+
         public MySimulation(double startTime, double hockeyMatchTime, double endTime)
 		{
             StartTime = startTime;
@@ -54,12 +62,17 @@ namespace simulation
             LineMicrobuses = new[] {0, 0, 0};
             LineMicrobusesStartTimes = new[] { new List<double>(), new List<double>(), new List<double>() };
 
+            // init statistics
+            AveragePassengerWaitingTimeSim = new Stat();
+
             // init configuration properties
             LinesConfiguration = new LinesConfiguration();
            
+            // init generators
             Random seedGenerator = new Random();
             ExponentialRNG.SetSeedGen(seedGenerator);
             TriangularRNG.SetSeedGen(seedGenerator);
+            UniformContinuousRNG.SetSeedGen(seedGenerator);
             Init();            
         }        
 
@@ -67,6 +80,7 @@ namespace simulation
 		{
 			base.PrepareSimulation();
 			// Create global statistcis
+            AveragePassengerWaitingTimeSim.Clear();
 		}
 
 		override protected void PrepareReplication()
@@ -79,6 +93,7 @@ namespace simulation
 		{
 			// Collect local statistics into global, update UI, etc...
 			base.ReplicationFinished();
+            AveragePassengerWaitingTimeSim.AddSample(BusStopsAgent.WaitingTimeRepStat.Mean());
 		}
 
 		override protected void SimulationFinished()

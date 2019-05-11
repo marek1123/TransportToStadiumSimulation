@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using OSPABA;
+using OSPStat;
 using simulation;
 using TransportToStadiumSimulation.utils;
 using Action = System.Action;
@@ -29,6 +30,7 @@ namespace TransportToStadiumAgentSimulation.gui
             simulation.OnSimulationDidFinish(handleSimulationDidFinish);
             simulation.OnSimulationWillStart(handleSimulationWillStart);
             simulation.OnReplicationWillStart(handleReplicationWillStart);
+            simulation.OnReplicationDidFinish(handleReplicationDidFinish);
             simulation.OnRefreshUI(handleRefreshUi);            
         }
 
@@ -63,6 +65,12 @@ namespace TransportToStadiumAgentSimulation.gui
             {
                 labelReplication.Text = simulation.CurrentReplication.ToString();
             });
+        }
+
+        private void handleReplicationDidFinish(Simulation simulation)
+        {
+            MySimulation mySimulation = (MySimulation) simulation;
+            updateSimulationStatistics(mySimulation);
         }
 
         private void handleRefreshUi(Simulation simulation)
@@ -100,7 +108,9 @@ namespace TransportToStadiumAgentSimulation.gui
                 {
                     dataGridBusStops.DataSource = busStops;                    
                 });
-            }            
+            }
+            
+            updateReplicationStatistics(mySimulation);
         }
 
         private void handleSimulationWillStart(Simulation simulation)
@@ -119,6 +129,32 @@ namespace TransportToStadiumAgentSimulation.gui
                 buttStop.Enabled = false;
             });            
         }
+
+        private void updateReplicationStatistics(MySimulation mySimulation)
+        {
+            updateStatistic(labelAveragePassengerWaitingTimeRep, mySimulation.AveragePassengerWaitingTimeRep);
+        }
+
+        private void updateSimulationStatistics(MySimulation mySimulation)
+        {         
+            updateStatistic(labelAveragePassengerWaitingTimeSim, mySimulation.AveragePassengerWaitingTimeSim);
+        }        
+
+        private void updateStatistic(Label label, Stat statistic)
+        {
+            DoOnGuiThread(label, () =>
+            {
+                if (statistic.SampleSize < 3)
+                {
+                    return;
+                }
+
+                double mean = statistic.Mean();
+                double[] confidenceInterval = statistic.ConfidenceInterval90;
+                label.Text = StatFormatter.FormatStatistic(mean, confidenceInterval);
+            });
+        }
+
         #endregion
 
         #region start, stop, pause buttons

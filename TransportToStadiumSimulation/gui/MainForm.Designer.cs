@@ -73,6 +73,11 @@
             this.startTimesAMicrobuses = new System.Windows.Forms.TextBox();
             this.startTimesBMicrobuses = new System.Windows.Forms.TextBox();
             this.startTimesCMicrobuses = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.labelAveragePassengerWaitingTimeRep = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.labelAveragePassengerWaitingTimeSim = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVehicles)).BeginInit();
             this.tabEntitiesLists.SuspendLayout();
@@ -94,7 +99,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(943, 287);
+            this.tabPage1.Size = new System.Drawing.Size(1504, 261);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "AllVehicles";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -108,7 +113,7 @@
             this.dataGridVehicles.Location = new System.Drawing.Point(6, 6);
             this.dataGridVehicles.Name = "dataGridVehicles";
             this.dataGridVehicles.RowTemplate.Height = 24;
-            this.dataGridVehicles.Size = new System.Drawing.Size(941, 275);
+            this.dataGridVehicles.Size = new System.Drawing.Size(1502, 249);
             this.dataGridVehicles.TabIndex = 0;
             // 
             // tabEntitiesLists
@@ -119,10 +124,10 @@
             this.tabEntitiesLists.Controls.Add(this.tabPage1);
             this.tabEntitiesLists.Controls.Add(this.tabPage2);
             this.tabEntitiesLists.Controls.Add(this.tabPage3);
-            this.tabEntitiesLists.Location = new System.Drawing.Point(12, 275);
+            this.tabEntitiesLists.Location = new System.Drawing.Point(12, 301);
             this.tabEntitiesLists.Name = "tabEntitiesLists";
             this.tabEntitiesLists.SelectedIndex = 0;
-            this.tabEntitiesLists.Size = new System.Drawing.Size(951, 316);
+            this.tabEntitiesLists.Size = new System.Drawing.Size(1512, 290);
             this.tabEntitiesLists.TabIndex = 0;
             // 
             // tabPage2
@@ -131,7 +136,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(601, 286);
+            this.tabPage2.Size = new System.Drawing.Size(1317, 287);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bus stops";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -154,7 +159,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(601, 286);
+            this.tabPage3.Size = new System.Drawing.Size(1317, 287);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Microbuses";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -537,11 +542,59 @@
             this.startTimesCMicrobuses.TabIndex = 49;
             this.startTimesCMicrobuses.TextChanged += new System.EventHandler(this.startTimesCMicrobuses_TextChanged);
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(1056, 65);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(142, 17);
+            this.label17.TabIndex = 50;
+            this.label17.Text = "replications statistics:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(829, 96);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(212, 17);
+            this.label18.TabIndex = 51;
+            this.label18.Text = "average passenger waiting time:";
+            // 
+            // labelAveragePassengerWaitingTimeRep
+            // 
+            this.labelAveragePassengerWaitingTimeRep.AutoSize = true;
+            this.labelAveragePassengerWaitingTimeRep.Location = new System.Drawing.Point(1056, 99);
+            this.labelAveragePassengerWaitingTimeRep.Name = "labelAveragePassengerWaitingTimeRep";
+            this.labelAveragePassengerWaitingTimeRep.Size = new System.Drawing.Size(0, 17);
+            this.labelAveragePassengerWaitingTimeRep.TabIndex = 52;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(1293, 63);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(133, 17);
+            this.label19.TabIndex = 53;
+            this.label19.Text = "simulation statistics:";
+            // 
+            // labelAveragePassengerWaitingTimeSim
+            // 
+            this.labelAveragePassengerWaitingTimeSim.AutoSize = true;
+            this.labelAveragePassengerWaitingTimeSim.Location = new System.Drawing.Point(1293, 99);
+            this.labelAveragePassengerWaitingTimeSim.Name = "labelAveragePassengerWaitingTimeSim";
+            this.labelAveragePassengerWaitingTimeSim.Size = new System.Drawing.Size(0, 17);
+            this.labelAveragePassengerWaitingTimeSim.TabIndex = 54;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(975, 603);
+            this.ClientSize = new System.Drawing.Size(1536, 603);
+            this.Controls.Add(this.labelAveragePassengerWaitingTimeSim);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.labelAveragePassengerWaitingTimeRep);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
             this.Controls.Add(this.startTimesCMicrobuses);
             this.Controls.Add(this.startTimesBMicrobuses);
             this.Controls.Add(this.startTimesAMicrobuses);
@@ -648,5 +701,10 @@
         private System.Windows.Forms.TextBox startTimesAMicrobuses;
         private System.Windows.Forms.TextBox startTimesBMicrobuses;
         private System.Windows.Forms.TextBox startTimesCMicrobuses;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label labelAveragePassengerWaitingTimeRep;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label labelAveragePassengerWaitingTimeSim;
     }
 }
