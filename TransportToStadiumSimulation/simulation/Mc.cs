@@ -4,6 +4,7 @@ namespace simulation
 	public class Mc : IdList
 	{
 		//meta! userInfo="Generated code: do not modify", tag="begin"
+		public const int Init = 1006;
 		public const int PassengerAtStadium = 1004;
 		public const int PassengerArrived = 1001;
 		public const int HandleVehicleOnBusStop = 1003;

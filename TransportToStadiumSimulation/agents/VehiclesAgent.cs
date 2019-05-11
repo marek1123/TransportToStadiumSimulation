@@ -14,12 +14,13 @@ namespace agents
 	public class VehiclesAgent : Agent
     {
         private BusStopsMap busStopsMap;
-        private readonly int[] vehiclesCapacity = { 186, 107 };
-        private readonly int[] doorsCounts = { 4, 3 };
+        private readonly int[] busesCapacity = { 186, 107 };
+        private readonly int[] busesDoorsCounts = { 4, 3 };
 
-        public List<List<Vehicle>> LineVehicles { get; }
+        public List<List<Vehicle>> LineBuses { get; }
         public List<List<Vehicle>> LineMicrobuses { get; }
-        public List<IVehicleData> AllVehicles => LineVehicles[0].Concat(LineVehicles[1].Concat(LineVehicles[2].Cast<IVehicleData>())).ToList();
+
+        public List<IVehicleData> AllVehicles => LineBuses[0].Concat(LineBuses[1].Concat(LineBuses[2].Cast<IVehicleData>())).ToList();
         public List<IVehicleData> AllMicrobuses => LineMicrobuses[0].Concat(LineMicrobuses[1].Concat(LineMicrobuses[2].Cast<IVehicleData>())).ToList();
 
         public NextStopArrivalScheduler NextStopArrivalScheduler { get; set; }
@@ -31,7 +32,7 @@ namespace agents
         {
             Init();            
 
-            LineVehicles = new List<List<Vehicle>>()
+            LineBuses = new List<List<Vehicle>>()
             {
                 new List<Vehicle>(),
                 new List<Vehicle>(),
@@ -50,13 +51,13 @@ namespace agents
             busStopsMap.CreateBusStopsMap(mySimulation.LinesConfiguration);
         }
 
-        public void CreateVehicles(MySimulation simulation)
+        private void CreateVehicles(MySimulation simulation)
         {
             int id = 1;
 
-            id = CreateLineVehicles(simulation, id, 0, VehicleType.PublicCarrierVehicle);
-            id = CreateLineVehicles(simulation, id, 1, VehicleType.PublicCarrierVehicle);
-            id = CreateLineVehicles(simulation, id, 2, VehicleType.PublicCarrierVehicle);
+            id = CreateLineBuses(simulation, id, 0, VehicleType.PublicCarrierVehicle);
+            id = CreateLineBuses(simulation, id, 1, VehicleType.PublicCarrierVehicle);
+            id = CreateLineBuses(simulation, id, 2, VehicleType.PublicCarrierVehicle);
 
             id = CreateMicrobuses(simulation, id, VehicleType.PrivateCarrierVehicle);            
         }
@@ -77,13 +78,13 @@ namespace agents
             return id;
         }
 
-        private int CreateLineVehicles(MySimulation simulation, int id, int line, VehicleType type)
+        private int CreateLineBuses(MySimulation simulation, int id, int line, VehicleType type)
         {
             foreach (var lineVehicle in simulation.LineVehicles[line])
             {
-                var vehicle = new Vehicle(simulation, id, type, doorsCounts[lineVehicle], vehiclesCapacity[lineVehicle],
+                var vehicle = new Vehicle(simulation, id, type, busesDoorsCounts[lineVehicle], busesCapacity[lineVehicle],
                     new Navigation(busStopsMap.StartsOfTheLines[line]));
-                LineVehicles[line].Add(vehicle);
+                LineBuses[line].Add(vehicle);
                 id++;
             }
 
@@ -92,16 +93,18 @@ namespace agents
 
         public void ClearVehicles()
         {
-            LineVehicles.ForEach(vehicles => vehicles.Clear());
+            LineBuses.ForEach(buses => buses.Clear());
             LineMicrobuses.ForEach(microbuses => microbuses.Clear());
         }
 
         override public void PrepareReplication()
 		{
 			base.PrepareReplication();
-			// Setup component for the next replication
-            VehicleManager.ScheduleVehiclesStart();
-		}
+            // Setup component for the next replication
+            var simulation = (MySimulation)MySim;
+            ClearVehicles();
+            CreateVehicles(simulation);
+        }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		private void Init()
@@ -109,6 +112,7 @@ namespace agents
 			new VehiclesManager(SimId.VehiclesManager, MySim, this);
 			new VehicleStartScheduler(SimId.VehicleStartScheduler, MySim, this);
 			new NextStopArrivalScheduler(SimId.NextStopArrivalScheduler, MySim, this);
+			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.HandleVehicleOnBusStop);
 		}
 		//meta! tag="end"

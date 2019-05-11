@@ -1,5 +1,6 @@
 using OSPABA;
 using agents;
+using continualAssistants;
 using simulation;
 
 namespace managers
@@ -50,6 +51,16 @@ namespace managers
 		{
 		}
 
+		//meta! sender="ModelAgent", id="64", type="Notice"
+		public void ProcessInit(MessageForm message)
+		{
+            var myMessage = new MyMessage(MySim)
+            {
+                Addressee = MyAgent.PassengerArrivalProcess
+            };
+            StartContinualAssistant(myMessage);
+        }
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -59,6 +70,10 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
 			case Mc.PassengerArrived:
 				ProcessPassengerArrived(message);
 			break;

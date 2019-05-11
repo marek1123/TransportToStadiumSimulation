@@ -77,8 +77,14 @@ namespace managers
             }
             else if (vehicle.FreeDoorsCount == vehicle.DoorsCount)
             {
-                Response(myMessage);
+                VehicleLeaves(myMessage);
             }                        
+        }
+
+        private void VehicleLeaves(MyMessage myMessage)
+        {
+            myMessage.Code = Mc.HandleVehicleOnBusStop;
+            Response(myMessage);
         }
 
         private void NotifyPassengerArrivedAtStadium(Passenger passenger)

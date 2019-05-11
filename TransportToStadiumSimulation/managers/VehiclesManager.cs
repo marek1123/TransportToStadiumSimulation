@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OSPABA;
 using simulation;
 using agents;
@@ -18,10 +19,7 @@ namespace managers
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
-            // Setup component for the next replication
-            var simulation = (MySimulation)MySim;
-            MyAgent.ClearVehicles();
-            MyAgent.CreateVehicles(simulation);            
+            // Setup component for the next replication            
 
             if (PetriNet != null)
 			{
@@ -29,18 +27,26 @@ namespace managers
 			}
 		}
 
-        public void ScheduleVehiclesStart()
+        private void ScheduleVehiclesStart()
         {
+            var mySimulation = (MySimulation) MySim;
+
             // start buses
-            for (int line = 0; line < MyAgent.LineVehicles.Count; line++)
+            for (int line = 0; line < MyAgent.LineBuses.Count; line++)
             {
-                ScheduleLineBusesStart(line);
+                ScheduleLineVehiclesStart(line, MyAgent.LineBuses, mySimulation.LineBusesStartTimes);                
+            }
+
+            // start microbuses
+            for (int line = 0; line < MyAgent.LineMicrobuses.Count; line++)
+            {
+                ScheduleLineVehiclesStart(line, MyAgent.LineMicrobuses, mySimulation.LineMicrobusesStartTimes);
             }
         }
 
-        private void ScheduleLineBusesStart(int line)
+        private void ScheduleLineVehiclesStart(int line, List<List<Vehicle>> lineVehicles, List<double>[] lineStartTimes)
         {
-            if (MyAgent.LineVehicles[line].Count == 0)
+            if (lineVehicles[line].Count == 0)
                 return;
 
             MySimulation mySimulation = (MySimulation) MySim;
@@ -50,17 +56,17 @@ namespace managers
                 Addressee = MyAgent.VehicleStartScheduler
             };
 
-            double startTime = mySimulation.HockeyMatchTime - mySimulation.LineBusesStartTimes[line][0];
+            double startTime = mySimulation.HockeyMatchTime - lineStartTimes[line][0];
 
-            for (int vehicleIdx = 0; vehicleIdx < MyAgent.LineVehicles[line].Count; vehicleIdx++)
+            for (int vehicleIdx = 0; vehicleIdx < lineVehicles[line].Count; vehicleIdx++)
             {
                 if (vehicleIdx != 0)
                 {
-                    startTime += mySimulation.LineBusesStartTimes[line][vehicleIdx];
+                    startTime += lineStartTimes[line][vehicleIdx];
                 }
 
                 var messageCopy = (MyMessage) myMessage.CreateCopy();
-                messageCopy.Vehicle = MyAgent.LineVehicles[line][vehicleIdx];
+                messageCopy.Vehicle = lineVehicles[line][vehicleIdx];
                 messageCopy.Time = startTime;
                 StartContinualAssistant(messageCopy);
             }
@@ -116,8 +122,14 @@ namespace managers
             Request(message);
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        public void Init()
+		//meta! sender="ModelAgent", id="65", type="Notice"
+		public void ProcessInit(MessageForm message)
+		{
+            ScheduleVehiclesStart();
+		}
+
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		public void Init()
 		{
 		}
 
@@ -127,6 +139,10 @@ namespace managers
 			{
 			case Mc.HandleVehicleOnBusStop:
 				ProcessHandleVehicleOnBusStop(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			case Mc.Finish:

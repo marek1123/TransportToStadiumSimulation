@@ -26,6 +26,11 @@ namespace TransportToStadiumSimulation.entities
             passengerQueue = new Queue<Passenger>();
         }
 
+        public void PrepareReplication()
+        {
+            passengerQueue.Clear();
+        }
+
         public void EnqueuePassenger(Passenger passenger)
         {
             passengerQueue.Enqueue(passenger);

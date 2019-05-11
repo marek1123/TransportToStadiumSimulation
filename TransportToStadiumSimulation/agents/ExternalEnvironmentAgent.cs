@@ -54,11 +54,7 @@ namespace agents
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
-            reset();
-
-            var myMessage = new MyMessage(MySim);
-            myMessage.Addressee = PassengerArrivalProcess;            
-            ExternalEnvironmentManager.StartContinualAssistant(myMessage);
+            reset();            
         }
         
 		//meta! userInfo="Generated code: do not modify", tag="begin"
@@ -66,6 +62,7 @@ namespace agents
 		{
 			new ExternalEnvironmentManager(SimId.ExternalEnvironmentManager, MySim, this);
 			new PassengerArrivalProcess(SimId.PassengerArrivalProcess, MySim, this);
+			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.PassengerAtStadium);
 			AddOwnMessage(Mc.PassengerArrived);
 		}

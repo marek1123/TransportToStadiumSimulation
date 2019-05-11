@@ -11,12 +11,13 @@ namespace managers
 			base(id, mySim, myAgent)
 		{
 			Init();
-		}
+            MyAgent.ModelManager = this;
+        }
 
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
-			// Setup component for the next replication
+			// Setup component for the next replication            
 
 			if (PetriNet != null)
 			{
@@ -24,8 +25,26 @@ namespace managers
 			}
 		}
 
-		//meta! sender="BusStopsAgent", id="16", type="Response"
-		public void ProcessHandleVehicleOnBusStopBusStopsAgent(MessageForm message)
+        public void InitEnvironmentAgent()
+        {
+            MyMessage message = new MyMessage(MySim)
+            {
+                Code = Mc.Init, AddresseeId = SimId.VehiclesAgent
+            };
+            Notice(message);
+        }
+
+        public void InitVehiclesAgent()
+        {
+            MyMessage message = new MyMessage(MySim)
+            {
+                Code = Mc.Init, AddresseeId = SimId.ExternalEnvironmentAgent
+            };
+            Notice(message);
+        }
+
+        //meta! sender="BusStopsAgent", id="16", type="Response"
+        public void ProcessHandleVehicleOnBusStopBusStopsAgent(MessageForm message)
 		{
             Response(message);
         }
@@ -80,9 +99,17 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.PassengerArrived:
+				ProcessPassengerArrived(message);
+			break;
+
 			case Mc.HandleVehicleOnBusStop:
 				switch (message.Sender.Id)
 				{
+				case SimId.StadiumAgent:
+					ProcessHandleVehicleOnBusStopStadiumAgent(message);
+				break;
+
 				case SimId.VehiclesAgent:
 					ProcessHandleVehicleOnBusStopVehiclesAgent(message);
 				break;
@@ -90,15 +117,7 @@ namespace managers
 				case SimId.BusStopsAgent:
 					ProcessHandleVehicleOnBusStopBusStopsAgent(message);
 				break;
-
-				case SimId.StadiumAgent:
-					ProcessHandleVehicleOnBusStopStadiumAgent(message);
-				break;
 				}
-			break;
-
-			case Mc.PassengerArrived:
-				ProcessPassengerArrived(message);
 			break;
 
 			case Mc.PassengerAtStadium:
