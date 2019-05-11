@@ -33,6 +33,8 @@
             this.tabEntitiesLists = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridBusStops = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridMicrobuses = new System.Windows.Forms.DataGridView();
             this.buttStart = new System.Windows.Forms.Button();
             this.buttStop = new System.Windows.Forms.Button();
             this.buttPause = new System.Windows.Forms.Button();
@@ -57,9 +59,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxLineCVehicles = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.labelLineAVehicles = new System.Windows.Forms.Label();
-            this.labelLineCVehicles = new System.Windows.Forms.Label();
-            this.labelLineBVehicles = new System.Windows.Forms.Label();
             this.checkBoxWaitingOnBusStop = new System.Windows.Forms.CheckBox();
             this.numLineAMicrobuses = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,21 +66,26 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numLineCMicrobuses = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridMicrobuses = new System.Windows.Forms.DataGridView();
+            this.startTimesLineABuses = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.startTimesBBuses = new System.Windows.Forms.TextBox();
+            this.startTimesCBuses = new System.Windows.Forms.TextBox();
+            this.startTimesAMicrobuses = new System.Windows.Forms.TextBox();
+            this.startTimesBMicrobuses = new System.Windows.Forms.TextBox();
+            this.startTimesCMicrobuses = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVehicles)).BeginInit();
             this.tabEntitiesLists.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridBusStops)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMicrobuses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numReplicationsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLineAMicrobuses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLineBMicrobuses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLineCMicrobuses)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridMicrobuses)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -90,7 +94,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(601, 286);
+            this.tabPage1.Size = new System.Drawing.Size(943, 287);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "AllVehicles";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -104,7 +108,7 @@
             this.dataGridVehicles.Location = new System.Drawing.Point(6, 6);
             this.dataGridVehicles.Name = "dataGridVehicles";
             this.dataGridVehicles.RowTemplate.Height = 24;
-            this.dataGridVehicles.Size = new System.Drawing.Size(599, 274);
+            this.dataGridVehicles.Size = new System.Drawing.Size(941, 275);
             this.dataGridVehicles.TabIndex = 0;
             // 
             // tabEntitiesLists
@@ -115,10 +119,10 @@
             this.tabEntitiesLists.Controls.Add(this.tabPage1);
             this.tabEntitiesLists.Controls.Add(this.tabPage2);
             this.tabEntitiesLists.Controls.Add(this.tabPage3);
-            this.tabEntitiesLists.Location = new System.Drawing.Point(12, 248);
+            this.tabEntitiesLists.Location = new System.Drawing.Point(12, 275);
             this.tabEntitiesLists.Name = "tabEntitiesLists";
             this.tabEntitiesLists.SelectedIndex = 0;
-            this.tabEntitiesLists.Size = new System.Drawing.Size(609, 315);
+            this.tabEntitiesLists.Size = new System.Drawing.Size(951, 316);
             this.tabEntitiesLists.TabIndex = 0;
             // 
             // tabPage2
@@ -143,6 +147,29 @@
             this.dataGridBusStops.RowTemplate.Height = 24;
             this.dataGridBusStops.Size = new System.Drawing.Size(589, 277);
             this.dataGridBusStops.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dataGridMicrobuses);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(601, 286);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Microbuses";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridMicrobuses
+            // 
+            this.dataGridMicrobuses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridMicrobuses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMicrobuses.Location = new System.Drawing.Point(6, 6);
+            this.dataGridMicrobuses.Name = "dataGridMicrobuses";
+            this.dataGridMicrobuses.RowTemplate.Height = 24;
+            this.dataGridMicrobuses.Size = new System.Drawing.Size(589, 277);
+            this.dataGridMicrobuses.TabIndex = 1;
             // 
             // buttStart
             // 
@@ -328,7 +355,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(327, 68);
+            this.label13.Location = new System.Drawing.Point(327, 94);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(102, 17);
             this.label13.TabIndex = 27;
@@ -336,7 +363,7 @@
             // 
             // textBoxLineAVehicles
             // 
-            this.textBoxLineAVehicles.Location = new System.Drawing.Point(437, 68);
+            this.textBoxLineAVehicles.Location = new System.Drawing.Point(437, 94);
             this.textBoxLineAVehicles.Name = "textBoxLineAVehicles";
             this.textBoxLineAVehicles.Size = new System.Drawing.Size(157, 22);
             this.textBoxLineAVehicles.TabIndex = 28;
@@ -344,7 +371,7 @@
             // 
             // textBoxLineBVehicles
             // 
-            this.textBoxLineBVehicles.Location = new System.Drawing.Point(437, 95);
+            this.textBoxLineBVehicles.Location = new System.Drawing.Point(437, 121);
             this.textBoxLineBVehicles.Name = "textBoxLineBVehicles";
             this.textBoxLineBVehicles.Size = new System.Drawing.Size(157, 22);
             this.textBoxLineBVehicles.TabIndex = 30;
@@ -353,7 +380,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(327, 98);
+            this.label14.Location = new System.Drawing.Point(327, 124);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(102, 17);
             this.label14.TabIndex = 29;
@@ -361,7 +388,7 @@
             // 
             // textBoxLineCVehicles
             // 
-            this.textBoxLineCVehicles.Location = new System.Drawing.Point(437, 123);
+            this.textBoxLineCVehicles.Location = new System.Drawing.Point(437, 149);
             this.textBoxLineCVehicles.Name = "textBoxLineCVehicles";
             this.textBoxLineCVehicles.Size = new System.Drawing.Size(157, 22);
             this.textBoxLineCVehicles.TabIndex = 32;
@@ -370,35 +397,11 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(327, 125);
+            this.label15.Location = new System.Drawing.Point(327, 151);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(102, 17);
             this.label15.TabIndex = 31;
             this.label15.Text = "line C vehicles:";
-            // 
-            // labelLineAVehicles
-            // 
-            this.labelLineAVehicles.AutoSize = true;
-            this.labelLineAVehicles.Location = new System.Drawing.Point(600, 70);
-            this.labelLineAVehicles.Name = "labelLineAVehicles";
-            this.labelLineAVehicles.Size = new System.Drawing.Size(0, 17);
-            this.labelLineAVehicles.TabIndex = 33;
-            // 
-            // labelLineCVehicles
-            // 
-            this.labelLineCVehicles.AutoSize = true;
-            this.labelLineCVehicles.Location = new System.Drawing.Point(600, 126);
-            this.labelLineCVehicles.Name = "labelLineCVehicles";
-            this.labelLineCVehicles.Size = new System.Drawing.Size(0, 17);
-            this.labelLineCVehicles.TabIndex = 34;
-            // 
-            // labelLineBVehicles
-            // 
-            this.labelLineBVehicles.AutoSize = true;
-            this.labelLineBVehicles.Location = new System.Drawing.Point(600, 98);
-            this.labelLineBVehicles.Name = "labelLineBVehicles";
-            this.labelLineBVehicles.Size = new System.Drawing.Size(0, 17);
-            this.labelLineBVehicles.TabIndex = 35;
             // 
             // checkBoxWaitingOnBusStop
             // 
@@ -413,7 +416,7 @@
             // 
             // numLineAMicrobuses
             // 
-            this.numLineAMicrobuses.Location = new System.Drawing.Point(456, 160);
+            this.numLineAMicrobuses.Location = new System.Drawing.Point(456, 186);
             this.numLineAMicrobuses.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -427,7 +430,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(327, 162);
+            this.label4.Location = new System.Drawing.Point(327, 188);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 17);
             this.label4.TabIndex = 37;
@@ -435,7 +438,7 @@
             // 
             // numLineBMicrobuses
             // 
-            this.numLineBMicrobuses.Location = new System.Drawing.Point(456, 194);
+            this.numLineBMicrobuses.Location = new System.Drawing.Point(456, 220);
             this.numLineBMicrobuses.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -449,7 +452,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(327, 196);
+            this.label5.Location = new System.Drawing.Point(327, 222);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(123, 17);
             this.label5.TabIndex = 39;
@@ -457,7 +460,7 @@
             // 
             // numLineCMicrobuses
             // 
-            this.numLineCMicrobuses.Location = new System.Drawing.Point(456, 226);
+            this.numLineCMicrobuses.Location = new System.Drawing.Point(456, 252);
             this.numLineCMicrobuses.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -471,40 +474,81 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(327, 228);
+            this.label6.Location = new System.Drawing.Point(327, 254);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(123, 17);
             this.label6.TabIndex = 41;
             this.label6.Text = "line C microbuses:";
             // 
-            // tabPage3
+            // startTimesLineABuses
             // 
-            this.tabPage3.Controls.Add(this.dataGridMicrobuses);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(601, 286);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Microbuses";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.startTimesLineABuses.Location = new System.Drawing.Point(618, 93);
+            this.startTimesLineABuses.Name = "startTimesLineABuses";
+            this.startTimesLineABuses.Size = new System.Drawing.Size(157, 22);
+            this.startTimesLineABuses.TabIndex = 44;
+            this.startTimesLineABuses.TextChanged += new System.EventHandler(this.startTimesLineABuses_TextChanged);
             // 
-            // dataGridMicrobuses
+            // label16
             // 
-            this.dataGridMicrobuses.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridMicrobuses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMicrobuses.Location = new System.Drawing.Point(6, 6);
-            this.dataGridMicrobuses.Name = "dataGridMicrobuses";
-            this.dataGridMicrobuses.RowTemplate.Height = 24;
-            this.dataGridMicrobuses.Size = new System.Drawing.Size(589, 277);
-            this.dataGridMicrobuses.TabIndex = 1;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(615, 68);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 17);
+            this.label16.TabIndex = 43;
+            this.label16.Text = "start times:";
+            // 
+            // startTimesBBuses
+            // 
+            this.startTimesBBuses.Location = new System.Drawing.Point(618, 122);
+            this.startTimesBBuses.Name = "startTimesBBuses";
+            this.startTimesBBuses.Size = new System.Drawing.Size(157, 22);
+            this.startTimesBBuses.TabIndex = 45;
+            this.startTimesBBuses.TextChanged += new System.EventHandler(this.startTimesBBuses_TextChanged);
+            // 
+            // startTimesCBuses
+            // 
+            this.startTimesCBuses.Location = new System.Drawing.Point(618, 151);
+            this.startTimesCBuses.Name = "startTimesCBuses";
+            this.startTimesCBuses.Size = new System.Drawing.Size(157, 22);
+            this.startTimesCBuses.TabIndex = 46;
+            this.startTimesCBuses.TextChanged += new System.EventHandler(this.startTimesCBuses_TextChanged);
+            // 
+            // startTimesAMicrobuses
+            // 
+            this.startTimesAMicrobuses.Location = new System.Drawing.Point(618, 185);
+            this.startTimesAMicrobuses.Name = "startTimesAMicrobuses";
+            this.startTimesAMicrobuses.Size = new System.Drawing.Size(157, 22);
+            this.startTimesAMicrobuses.TabIndex = 47;
+            this.startTimesAMicrobuses.TextChanged += new System.EventHandler(this.startTimesAMicrobuses_TextChanged);
+            // 
+            // startTimesBMicrobuses
+            // 
+            this.startTimesBMicrobuses.Location = new System.Drawing.Point(618, 220);
+            this.startTimesBMicrobuses.Name = "startTimesBMicrobuses";
+            this.startTimesBMicrobuses.Size = new System.Drawing.Size(157, 22);
+            this.startTimesBMicrobuses.TabIndex = 48;
+            this.startTimesBMicrobuses.TextChanged += new System.EventHandler(this.startTimesBMicrobuses_TextChanged);
+            // 
+            // startTimesCMicrobuses
+            // 
+            this.startTimesCMicrobuses.Location = new System.Drawing.Point(618, 252);
+            this.startTimesCMicrobuses.Name = "startTimesCMicrobuses";
+            this.startTimesCMicrobuses.Size = new System.Drawing.Size(157, 22);
+            this.startTimesCMicrobuses.TabIndex = 49;
+            this.startTimesCMicrobuses.TextChanged += new System.EventHandler(this.startTimesCMicrobuses_TextChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(633, 575);
+            this.ClientSize = new System.Drawing.Size(975, 603);
+            this.Controls.Add(this.startTimesCMicrobuses);
+            this.Controls.Add(this.startTimesBMicrobuses);
+            this.Controls.Add(this.startTimesAMicrobuses);
+            this.Controls.Add(this.startTimesCBuses);
+            this.Controls.Add(this.startTimesBBuses);
+            this.Controls.Add(this.startTimesLineABuses);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.numLineCMicrobuses);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.numLineBMicrobuses);
@@ -512,9 +556,6 @@
             this.Controls.Add(this.numLineAMicrobuses);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkBoxWaitingOnBusStop);
-            this.Controls.Add(this.labelLineBVehicles);
-            this.Controls.Add(this.labelLineCVehicles);
-            this.Controls.Add(this.labelLineAVehicles);
             this.Controls.Add(this.textBoxLineCVehicles);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.textBoxLineBVehicles);
@@ -547,14 +588,14 @@
             this.tabEntitiesLists.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridBusStops)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMicrobuses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numReplicationsCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLineAMicrobuses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLineBMicrobuses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLineCMicrobuses)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridMicrobuses)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -591,9 +632,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxLineCVehicles;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label labelLineAVehicles;
-        private System.Windows.Forms.Label labelLineCVehicles;
-        private System.Windows.Forms.Label labelLineBVehicles;
         private System.Windows.Forms.CheckBox checkBoxWaitingOnBusStop;
         private System.Windows.Forms.NumericUpDown numLineAMicrobuses;
         private System.Windows.Forms.Label label4;
@@ -603,5 +641,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView dataGridMicrobuses;
+        private System.Windows.Forms.TextBox startTimesLineABuses;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox startTimesBBuses;
+        private System.Windows.Forms.TextBox startTimesCBuses;
+        private System.Windows.Forms.TextBox startTimesAMicrobuses;
+        private System.Windows.Forms.TextBox startTimesBMicrobuses;
+        private System.Windows.Forms.TextBox startTimesCMicrobuses;
     }
 }

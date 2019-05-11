@@ -25,8 +25,13 @@ namespace simulation
         #region input properties
 
         public bool WaitingOnBusStop { get; set; } = false;
+
         public List<int>[] LineVehicles { get; }
+        public List<double>[] LineBusesStartTimes { get; }
+
         public int[] LineMicrobuses { get; }
+        public List<double>[] LineMicrobusesStartTimes { get; }
+
         public double StartTime { get; }
         public double HockeyMatchTime { get; }
         public double EndTime { get; }
@@ -44,7 +49,10 @@ namespace simulation
 
             // init input properties
             LineVehicles = new[] { new List<int>(), new List<int>(), new List<int>() };
+            LineBusesStartTimes = new[] {new List<double>(), new List<double>(), new List<double>()};
+
             LineMicrobuses = new[] {0, 0, 0};
+            LineMicrobusesStartTimes = new[] { new List<double>(), new List<double>(), new List<double>() };
 
             // init configuration properties
             LinesConfiguration = new LinesConfiguration();

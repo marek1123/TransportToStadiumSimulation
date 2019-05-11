@@ -13,5 +13,14 @@ namespace TransportToStadiumSimulation.utils
             }
             return (str ?? "").Split(',').Select(int.Parse).ToList();
         }
+
+        public static List<double> ParseCommaSeparatedDoubles(string str)
+        {
+            if (str == "")
+            {
+                return new List<double>();
+            }
+            return (str ?? "").Split(',').Select(double.Parse).ToList();
+        }
     }
 }

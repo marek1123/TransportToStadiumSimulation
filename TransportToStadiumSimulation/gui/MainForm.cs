@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using OSPABA;
@@ -208,74 +209,37 @@ namespace TransportToStadiumAgentSimulation.gui
         // TODO check if integers falls in range 0-1
         private void textBoxLineAVehicles_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                string lineVehiclesString = textBoxLineAVehicles.Text;
-                simulation.LineVehicles[0] = StringParser.ParseCommaSeparatedIntegers(textBoxLineAVehicles.Text);
-                DoOnGuiThread(labelLineAVehicles, () =>
-                {
-                    textBoxLineAVehicles.ForeColor = Color.Green;
-                    labelLineAVehicles.Text = lineVehiclesString;
-                });
-            }
-            catch (FormatException ex)
-            {
-                DoOnGuiThread(labelLineAVehicles, () =>
-                {
-                    textBoxLineAVehicles.ForeColor = Color.Red;
-                    labelLineAVehicles.Text = "";
-                });
-            }                      
+            textBoxLineVehiclesChanged(textBoxLineAVehicles, 0);
         }
 
         private void textBoxLineBVehicles_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                string lineVehiclesString = textBoxLineBVehicles.Text;
-                simulation.LineVehicles[1] = StringParser.ParseCommaSeparatedIntegers(textBoxLineBVehicles.Text);
-                DoOnGuiThread(labelLineBVehicles, () =>
-                {
-                    textBoxLineBVehicles.ForeColor = Color.Green;
-                    labelLineBVehicles.Text = lineVehiclesString;
-                });
-            }
-            catch (FormatException ex)
-            {
-                DoOnGuiThread(labelLineAVehicles, () =>
-                {
-                    textBoxLineBVehicles.ForeColor = Color.Red;
-                    labelLineBVehicles.Text = "";
-                });
-            }
+            textBoxLineVehiclesChanged(textBoxLineBVehicles, 1);
         }
 
         private void textBoxLineCVehicles_TextChanged(object sender, EventArgs e)
         {
+            textBoxLineVehiclesChanged(textBoxLineCVehicles, 2);            
+        }
+
+        private void textBoxLineVehiclesChanged(TextBox textBox, int line)
+        {
             try
-            {
-                string lineVehiclesString = textBoxLineCVehicles.Text;
-                simulation.LineVehicles[2] = StringParser.ParseCommaSeparatedIntegers(textBoxLineCVehicles.Text);
-                DoOnGuiThread(labelLineCVehicles, () =>
+            {                
+                simulation.LineVehicles[line] = StringParser.ParseCommaSeparatedIntegers(textBox.Text);
+                DoOnGuiThread(textBox, () =>
                 {
-                    textBoxLineCVehicles.ForeColor = Color.Green;
-                    labelLineCVehicles.Text = lineVehiclesString;
+                    textBox.ForeColor = Color.Green;                    
                 });
             }
             catch (FormatException ex)
             {
-                DoOnGuiThread(labelLineAVehicles, () =>
+                DoOnGuiThread(textBox, () =>
                 {
-                    textBoxLineCVehicles.ForeColor = Color.Red;
-                    labelLineCVehicles.Text = "";
+                    textBox.ForeColor = Color.Red;                    
                 });
             }
-        }
-
-        private void checkBoxWaitingOnBusStop_CheckedChanged(object sender, EventArgs e)
-        {
-            simulation.WaitingOnBusStop = checkBoxWaitingOnBusStop.Checked;            
-        }
+        }      
 
         private void numLineAMicrobuses_ValueChanged(object sender, EventArgs e)
         {
@@ -295,6 +259,73 @@ namespace TransportToStadiumAgentSimulation.gui
             changeNumMicrobusesColorIfSumNotCorrect();
         }
 
+        private void startTimesLineABuses_TextChanged(object sender, EventArgs e)
+        {
+            startTimesChanged(startTimesLineABuses, startTimes =>
+            {
+                simulation.LineBusesStartTimes[0] = startTimes;
+            });
+        }
+
+        private void startTimesBBuses_TextChanged(object sender, EventArgs e)
+        {
+            startTimesChanged(startTimesBBuses, startTimes =>
+            {
+                simulation.LineBusesStartTimes[1] = startTimes;
+            });
+        }
+
+        private void startTimesCBuses_TextChanged(object sender, EventArgs e)
+        {
+            startTimesChanged(startTimesCBuses, startTimes =>
+            {
+                simulation.LineBusesStartTimes[2] = startTimes;
+            });
+        }
+
+        private void startTimesAMicrobuses_TextChanged(object sender, EventArgs e)
+        {
+            startTimesChanged(startTimesAMicrobuses, startTimes =>
+            {
+                simulation.LineMicrobusesStartTimes[0] = startTimes;
+            });
+        }
+
+        private void startTimesBMicrobuses_TextChanged(object sender, EventArgs e)
+        {
+            startTimesChanged(startTimesBMicrobuses, startTimes =>
+            {
+                simulation.LineMicrobusesStartTimes[1] = startTimes;
+            });
+        }
+
+        private void startTimesCMicrobuses_TextChanged(object sender, EventArgs e)
+        {
+            startTimesChanged(startTimesCMicrobuses, startTimes =>
+            {
+                simulation.LineMicrobusesStartTimes[2] = startTimes;
+            });
+        }
+
+        private void startTimesChanged(TextBox textBox, Action<List<double>> setStartTimes)
+        {
+            try
+            {
+                List<double> startTimes = StringParser.ParseCommaSeparatedDoubles(textBox.Text);
+                setStartTimes(startTimes);
+                DoOnGuiThread(textBox, () =>
+                {
+                    textBox.ForeColor = Color.Green;
+                });
+            }
+            catch (FormatException ex)
+            {
+                DoOnGuiThread(textBox, () =>
+                {
+                    textBox.ForeColor = Color.Red;
+                });
+            }
+        }
         private void changeNumMicrobusesColorIfSumNotCorrect()
         {
             int sum = (int) (numLineAMicrobuses.Value + numLineBMicrobuses.Value + numLineCMicrobuses.Value);
@@ -313,6 +344,10 @@ namespace TransportToStadiumAgentSimulation.gui
             }
         }
 
+        private void checkBoxWaitingOnBusStop_CheckedChanged(object sender, EventArgs e)
+        {
+            simulation.WaitingOnBusStop = checkBoxWaitingOnBusStop.Checked;
+        }
         #endregion        
     }
 }
