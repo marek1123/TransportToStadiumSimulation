@@ -11,7 +11,7 @@ namespace TransportToStadiumSimulation.entities
     {
         private Navigation Navigation { get; }        
         private readonly MySimulation mySimulation;
-        private Stack<Passenger> passengers;
+        public Stack<Passenger> passengers { get; }
 
         #region IVehicleData
         public int Id { get; }

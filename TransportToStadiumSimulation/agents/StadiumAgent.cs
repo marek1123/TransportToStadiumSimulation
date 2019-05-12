@@ -2,6 +2,7 @@ using continualAssistants;
 using OSPABA;
 using simulation;
 using managers;
+using OSPStat;
 
 namespace agents
 {
@@ -9,17 +10,23 @@ namespace agents
 	public class StadiumAgent : Agent
 	{
         public UnboardingFinishedScheduler UnboardingFinishedScheduler { get; set; }
+        public Stat ArrivedAfterStartRatioRep { get; }
+        public Stat AverageVehicleLoadRep { get; }
 
-		public StadiumAgent(int id, Simulation mySim, Agent parent) :
+        public StadiumAgent(int id, Simulation mySim, Agent parent) :
 			base(id, mySim, parent)
 		{
 			Init();
+            ArrivedAfterStartRatioRep = new Stat();
+            AverageVehicleLoadRep = new Stat();            
 		}
 
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
+            ArrivedAfterStartRatioRep.Clear();
+            AverageVehicleLoadRep.Clear();
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

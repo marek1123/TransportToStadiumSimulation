@@ -78,6 +78,12 @@
             this.labelAveragePassengerWaitingTimeRep = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.labelAveragePassengerWaitingTimeSim = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.labelArrivedAfterStartRatio = new System.Windows.Forms.Label();
+            this.labelArrivedAfterStartRatioRep = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.labelAverageVehicleLoadRep = new System.Windows.Forms.Label();
+            this.labelAverageVehicleLoadSim = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVehicles)).BeginInit();
             this.tabEntitiesLists.SuspendLayout();
@@ -136,7 +142,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1317, 287);
+            this.tabPage2.Size = new System.Drawing.Size(1504, 261);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bus stops";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -159,7 +165,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1317, 287);
+            this.tabPage3.Size = new System.Drawing.Size(1504, 261);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Microbuses";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -585,11 +591,67 @@
             this.labelAveragePassengerWaitingTimeSim.Size = new System.Drawing.Size(0, 17);
             this.labelAveragePassengerWaitingTimeSim.TabIndex = 54;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(829, 127);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(153, 17);
+            this.label20.TabIndex = 55;
+            this.label20.Text = "arrived after start ratio:";
+            // 
+            // labelArrivedAfterStartRatio
+            // 
+            this.labelArrivedAfterStartRatio.AutoSize = true;
+            this.labelArrivedAfterStartRatio.Location = new System.Drawing.Point(1293, 121);
+            this.labelArrivedAfterStartRatio.Name = "labelArrivedAfterStartRatio";
+            this.labelArrivedAfterStartRatio.Size = new System.Drawing.Size(0, 17);
+            this.labelArrivedAfterStartRatio.TabIndex = 56;
+            // 
+            // labelArrivedAfterStartRatioRep
+            // 
+            this.labelArrivedAfterStartRatioRep.AutoSize = true;
+            this.labelArrivedAfterStartRatioRep.Location = new System.Drawing.Point(1056, 127);
+            this.labelArrivedAfterStartRatioRep.Name = "labelArrivedAfterStartRatioRep";
+            this.labelArrivedAfterStartRatioRep.Size = new System.Drawing.Size(0, 17);
+            this.labelArrivedAfterStartRatioRep.TabIndex = 57;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(829, 156);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(143, 17);
+            this.label21.TabIndex = 58;
+            this.label21.Text = "average vehicle load:";
+            // 
+            // labelAverageVehicleLoadRep
+            // 
+            this.labelAverageVehicleLoadRep.AutoSize = true;
+            this.labelAverageVehicleLoadRep.Location = new System.Drawing.Point(1056, 156);
+            this.labelAverageVehicleLoadRep.Name = "labelAverageVehicleLoadRep";
+            this.labelAverageVehicleLoadRep.Size = new System.Drawing.Size(0, 17);
+            this.labelAverageVehicleLoadRep.TabIndex = 59;
+            // 
+            // labelAverageVehicleLoadSim
+            // 
+            this.labelAverageVehicleLoadSim.AutoSize = true;
+            this.labelAverageVehicleLoadSim.Location = new System.Drawing.Point(1293, 156);
+            this.labelAverageVehicleLoadSim.Name = "labelAverageVehicleLoadSim";
+            this.labelAverageVehicleLoadSim.Size = new System.Drawing.Size(0, 17);
+            this.labelAverageVehicleLoadSim.TabIndex = 60;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1536, 603);
+            this.Controls.Add(this.labelAverageVehicleLoadSim);
+            this.Controls.Add(this.labelAverageVehicleLoadRep);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.labelArrivedAfterStartRatioRep);
+            this.Controls.Add(this.labelArrivedAfterStartRatio);
+            this.Controls.Add(this.label20);
             this.Controls.Add(this.labelAveragePassengerWaitingTimeSim);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.labelAveragePassengerWaitingTimeRep);
@@ -706,5 +768,11 @@
         private System.Windows.Forms.Label labelAveragePassengerWaitingTimeRep;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label labelAveragePassengerWaitingTimeSim;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label labelArrivedAfterStartRatio;
+        private System.Windows.Forms.Label labelArrivedAfterStartRatioRep;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label labelAverageVehicleLoadRep;
+        private System.Windows.Forms.Label labelAverageVehicleLoadSim;
     }
 }

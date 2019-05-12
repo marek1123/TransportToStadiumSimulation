@@ -47,6 +47,11 @@ namespace simulation
         public Stat AveragePassengerWaitingTimeRep => BusStopsAgent.WaitingTimeRepStat;
         public Stat AveragePassengerWaitingTimeSim { get; }
 
+        public Stat ArrivedAfterStartRatioRep => StadiumAgent.ArrivedAfterStartRatioRep;
+        public Stat ArrivedAfterStartRatioSim { get; }
+
+        public Stat AverageVehicleLoadRep => StadiumAgent.AverageVehicleLoadRep;
+        public Stat AverageVehicleLoadSim { get; }
         #endregion
 
         public MySimulation(double startTime, double hockeyMatchTime, double endTime)
@@ -64,6 +69,8 @@ namespace simulation
 
             // init statistics
             AveragePassengerWaitingTimeSim = new Stat();
+            ArrivedAfterStartRatioSim = new Stat();
+            AverageVehicleLoadSim = new Stat();
 
             // init configuration properties
             LinesConfiguration = new LinesConfiguration();
@@ -81,6 +88,8 @@ namespace simulation
 			base.PrepareSimulation();
 			// Create global statistcis
             AveragePassengerWaitingTimeSim.Clear();
+            ArrivedAfterStartRatioSim.Clear();
+            AverageVehicleLoadSim.Clear();
 		}
 
 		override protected void PrepareReplication()
@@ -94,6 +103,8 @@ namespace simulation
 			// Collect local statistics into global, update UI, etc...
 			base.ReplicationFinished();
             AveragePassengerWaitingTimeSim.AddSample(BusStopsAgent.WaitingTimeRepStat.Mean());
+            ArrivedAfterStartRatioSim.AddSample(StadiumAgent.ArrivedAfterStartRatioRep.Mean());
+            AverageVehicleLoadSim.AddSample(StadiumAgent.AverageVehicleLoadRep.Mean());
 		}
 
 		override protected void SimulationFinished()
@@ -120,7 +131,8 @@ namespace simulation
 		public StadiumAgent StadiumAgent
 		{ get; set; }
 		public ExternalEnvironmentAgent ExternalEnvironmentAgent
-		{ get; set; }
-		//meta! tag="end"
+		{ get; set; }        
+
+        //meta! tag="end"
 	}
 }

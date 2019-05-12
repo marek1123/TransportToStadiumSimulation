@@ -31,6 +31,9 @@ namespace managers
             var myMessage = (MyMessage) message;
             Vehicle vehicle = myMessage.Vehicle;
 
+            // update statistic
+            updateVehicleArrivedStat(vehicle);
+
             if (vehicle.IsEmpty)
             {
                 Response(myMessage);
@@ -40,6 +43,20 @@ namespace managers
             while (vehicle.FreeDoorsCount > 0 && !vehicle.IsEmpty)
             {                                
                 StartUnboarding((MyMessage) myMessage.CreateCopy());
+            }
+        }
+
+        private void updateVehicleArrivedStat(Vehicle vehicle)
+        {            
+            for (int i = 0; i < vehicle.passengers.Count; i++)
+            {
+                MyAgent.AverageVehicleLoadRep.AddSample(1);
+            }
+
+            int emptyPlaces = vehicle.Capacity - vehicle.passengers.Count;
+            for (int i = 0; i < emptyPlaces; i++)
+            {
+                MyAgent.AverageVehicleLoadRep.AddSample(0);
             }
         }
 
@@ -89,6 +106,18 @@ namespace managers
 
         private void NotifyPassengerArrivedAtStadium(Passenger passenger)
         {
+            var mySimulation = (MySimulation) MySim;
+
+            // update statistic
+            int statValue = 0;
+            if (mySimulation.CurrentTime > mySimulation.HockeyMatchTime)
+            {
+                statValue = 1;
+            }
+
+            MyAgent.ArrivedAfterStartRatioRep.AddSample(statValue);
+
+            // send message
             var myMessage = new MyMessage(MySim)
             {
                 Passenger = passenger,

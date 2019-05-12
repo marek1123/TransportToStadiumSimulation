@@ -133,11 +133,15 @@ namespace TransportToStadiumAgentSimulation.gui
         private void updateReplicationStatistics(MySimulation mySimulation)
         {
             updateStatistic(labelAveragePassengerWaitingTimeRep, mySimulation.AveragePassengerWaitingTimeRep);
+            updateStatistic(labelArrivedAfterStartRatioRep, mySimulation.ArrivedAfterStartRatioRep);
+            updateStatistic(labelAverageVehicleLoadRep, mySimulation.AverageVehicleLoadRep);
         }
 
         private void updateSimulationStatistics(MySimulation mySimulation)
         {         
             updateStatistic(labelAveragePassengerWaitingTimeSim, mySimulation.AveragePassengerWaitingTimeSim);
+            updateStatistic(labelArrivedAfterStartRatio, mySimulation.ArrivedAfterStartRatioSim);
+            updateStatistic(labelAverageVehicleLoadSim, mySimulation.AverageVehicleLoadSim);
         }        
 
         private void updateStatistic(Label label, Stat statistic)
