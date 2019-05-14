@@ -10,14 +10,13 @@ namespace continualAssistants
 	public class UnboardingFinishedScheduler : Scheduler
 	{
         private TriangularRNG busUnboardingTimeGenerator;
-        private ExponentialRNG microbusUnboardingTimeGenerator; // TODO change distribution
+        private double microbusUnboardingTime = 4; // TODO change distribution
 
         public UnboardingFinishedScheduler(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
         {
             MyAgent.UnboardingFinishedScheduler = this;
-            busUnboardingTimeGenerator = new TriangularRNG(0.6, 1.2, 4.2);
-            microbusUnboardingTimeGenerator = new ExponentialRNG(4);
+            busUnboardingTimeGenerator = new TriangularRNG(0.6, 1.2, 4.2);            
             MyAgent.AddOwnMessage(Mc.PassengerUnboarded);
         }
 
@@ -42,7 +41,7 @@ namespace continualAssistants
             }
             else
             {
-                duration = microbusUnboardingTimeGenerator.Sample();
+                duration = microbusUnboardingTime;
             }
 
             message.Code = Mc.PassengerUnboarded;

@@ -72,12 +72,19 @@
     <Compile Include="entities\VehicleState.cs" />
     <Compile Include="entities\VehicleType.cs" />
     <Compile Include="entities\VehicleWaitingState.cs" />
+    <Compile Include="gui\FindConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FindConfigurationForm.Designer.cs">
+      <DependentUpon>FindConfigurationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\SimulationConfiguration.cs" />
     <Compile Include="managers\BusStopsManager.cs" />
     <Compile Include="managers\ExternalEnvironmentManager.cs" />
     <Compile Include="managers\ModelManager.cs" />
@@ -99,6 +106,9 @@
     <Compile Include="utils\StatFormatter.cs" />
     <Compile Include="utils\StringParser.cs" />
     <Compile Include="utils\TimeFormatter.cs" />
+    <EmbeddedResource Include="gui\FindConfigurationForm.resx">
+      <DependentUpon>FindConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

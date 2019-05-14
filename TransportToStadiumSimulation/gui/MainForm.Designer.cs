@@ -84,6 +84,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.labelAverageVehicleLoadRep = new System.Windows.Forms.Label();
             this.labelAverageVehicleLoadSim = new System.Windows.Forms.Label();
+            this.buttFindConfiguration = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVehicles)).BeginInit();
             this.tabEntitiesLists.SuspendLayout();
@@ -641,11 +642,22 @@
             this.labelAverageVehicleLoadSim.Size = new System.Drawing.Size(0, 17);
             this.labelAverageVehicleLoadSim.TabIndex = 60;
             // 
+            // buttFindConfiguration
+            // 
+            this.buttFindConfiguration.Location = new System.Drawing.Point(12, 252);
+            this.buttFindConfiguration.Name = "buttFindConfiguration";
+            this.buttFindConfiguration.Size = new System.Drawing.Size(253, 33);
+            this.buttFindConfiguration.TabIndex = 61;
+            this.buttFindConfiguration.Text = "Find configuration";
+            this.buttFindConfiguration.UseVisualStyleBackColor = true;
+            this.buttFindConfiguration.Click += new System.EventHandler(this.buttFindConfiguration_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1536, 603);
+            this.Controls.Add(this.buttFindConfiguration);
             this.Controls.Add(this.labelAverageVehicleLoadSim);
             this.Controls.Add(this.labelAverageVehicleLoadRep);
             this.Controls.Add(this.label21);
@@ -774,5 +786,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label labelAverageVehicleLoadRep;
         private System.Windows.Forms.Label labelAverageVehicleLoadSim;
+        private System.Windows.Forms.Button buttFindConfiguration;
     }
 }

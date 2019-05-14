@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using OSPABA;
 using OSPStat;
 using simulation;
+using TransportToStadiumSimulation.gui;
 using TransportToStadiumSimulation.utils;
 using Action = System.Action;
 
@@ -388,6 +389,12 @@ namespace TransportToStadiumAgentSimulation.gui
         {
             simulation.WaitingOnBusStop = checkBoxWaitingOnBusStop.Checked;
         }
-        #endregion        
+        #endregion
+
+        private void buttFindConfiguration_Click(object sender, EventArgs e)
+        {
+            FindConfigurationForm form = new FindConfigurationForm();
+            form.Show();
+        }
     }
 }
